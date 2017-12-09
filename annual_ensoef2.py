@@ -87,7 +87,7 @@ lon_1 = -98
 lon_2 = -82
 
 alltor1 = pk.whats_up_doc(time_1, time_2,
-                       frequency = 'subseason', stat_choice = 'composite', tor_min=1,
+                       frequency = 'subseason', stat_choice = 'composite', tor_min=2,
                        enso_neutral=False, enso_only=False, nino_only=False, nina_only=False, gom_warm=False, gom_cold=False,
                        oni_demarcator=0.5, gom_quantile=0,
                        composite_type='anomaly', comp_comp='mean',
@@ -132,7 +132,7 @@ lon_1 = -98
 lon_2 = -82
 
 alltor2 = pk.whats_up_doc(time_1, time_2,
-                       frequency = 'subseason', stat_choice = 'composite', tor_min=1,
+                       frequency = 'subseason', stat_choice = 'composite', tor_min=2,
                        enso_neutral=False, enso_only=False, nino_only=False, nina_only=False, gom_warm=False, gom_cold=False,
                        oni_demarcator=0.5, gom_quantile=0,
                        composite_type='anomaly', comp_comp='mean',
@@ -179,7 +179,7 @@ lon_2 = -82
 
 
 alltor3 = pk.whats_up_doc(time_1, time_2,
-                       frequency = 'subseason', stat_choice = 'composite', tor_min=1,
+                       frequency = 'subseason', stat_choice = 'composite', tor_min=2,
                        enso_neutral=False, enso_only=False, nino_only=False, nina_only=False, gom_warm=False, gom_cold=False,
                        oni_demarcator=0.5, gom_quantile=0,
                        composite_type='anomaly', comp_comp='mean',
@@ -224,7 +224,7 @@ lon_1 = -98
 lon_2 = -82
 
 alltor4 = pk.whats_up_doc(time_1, time_2,
-                       frequency = 'subseason', stat_choice = 'composite', tor_min=1,
+                       frequency = 'subseason', stat_choice = 'composite', tor_min=2,
                        enso_neutral=False, enso_only=False, nino_only=False, nina_only=False, gom_warm=False, gom_cold=False,
                        oni_demarcator=0.5, gom_quantile=0,
                        composite_type='anomaly', comp_comp='mean',
@@ -269,7 +269,7 @@ lon_1 = -98
 lon_2 = -82
 
 alltor5 = pk.whats_up_doc(time_1, time_2,
-                       frequency = 'subseason', stat_choice = 'composite', tor_min=1,
+                       frequency = 'subseason', stat_choice = 'composite', tor_min=2,
                        enso_neutral=False, enso_only=False, nino_only=False, nina_only=False, gom_warm=False, gom_cold=False,
                        oni_demarcator=0.5, gom_quantile=0,
                        composite_type='anomaly', comp_comp='mean',
@@ -314,7 +314,7 @@ lon_1 = -98
 lon_2 = -82
 
 alltor6 = pk.whats_up_doc(time_1, time_2,
-                       frequency = 'subseason', stat_choice = 'composite', tor_min=1,
+                       frequency = 'subseason', stat_choice = 'composite', tor_min=2,
                        enso_neutral=False, enso_only=False, nino_only=False, nina_only=False, gom_warm=False, gom_cold=False,
                        oni_demarcator=0.5, gom_quantile=0,
                        composite_type='anomaly', comp_comp='mean',
@@ -360,7 +360,7 @@ lon_2 = -82
 
 
 alltor7 = pk.whats_up_doc(time_1, time_2,
-                       frequency = 'subseason', stat_choice = 'composite', tor_min=1,
+                       frequency = 'subseason', stat_choice = 'composite', tor_min=2,
                        enso_neutral=False, enso_only=False, nino_only=False, nina_only=False, gom_warm=False, gom_cold=False,
                        oni_demarcator=0.5, gom_quantile=0,
                        composite_type='anomaly', comp_comp='mean',
@@ -405,7 +405,7 @@ lon_1 = -98
 lon_2 = -82
 
 alltor8 = pk.whats_up_doc(time_1, time_2,
-                       frequency = 'subseason', stat_choice = 'composite', tor_min=1,
+                       frequency = 'subseason', stat_choice = 'composite', tor_min=2,
                        enso_neutral=False, enso_only=False, nino_only=False, nina_only=False, gom_warm=False, gom_cold=False,
                        oni_demarcator=0.5, gom_quantile=0,
                        composite_type='anomaly', comp_comp='mean',
@@ -450,7 +450,7 @@ lon_1 = -98
 lon_2 = -82
 
 alltor9 = pk.whats_up_doc(time_1, time_2,
-                       frequency = 'subseason', stat_choice = 'composite', tor_min=1,
+                       frequency = 'subseason', stat_choice = 'composite', tor_min=2,
                        enso_neutral=False, enso_only=False, nino_only=False, nina_only=False, gom_warm=False, gom_cold=False,
                        oni_demarcator=0.5, gom_quantile=0,
                        composite_type='anomaly', comp_comp='mean',
@@ -495,7 +495,7 @@ lon_1 = -98
 lon_2 = -82
 
 alltor10 = pk.whats_up_doc(time_1, time_2,
-                       frequency = 'subseason', stat_choice = 'composite', tor_min=1,
+                       frequency = 'subseason', stat_choice = 'composite', tor_min=2,
                        enso_neutral=False, enso_only=False, nino_only=False, nina_only=False, gom_warm=False, gom_cold=False,
                        oni_demarcator=0.5, gom_quantile=0,
                        composite_type='anomaly', comp_comp='mean',
@@ -541,7 +541,7 @@ lon_2 = -82
 
 
 alltor11 = pk.whats_up_doc(time_1, time_2,
-                       frequency = 'subseason', stat_choice = 'composite', tor_min=1,
+                       frequency = 'subseason', stat_choice = 'composite', tor_min=2,
                        enso_neutral=False, enso_only=False, nino_only=False, nina_only=False, gom_warm=False, gom_cold=False,
                        oni_demarcator=0.5, gom_quantile=0,
                        composite_type='anomaly', comp_comp='mean',
@@ -586,7 +586,7 @@ lon_1 = -98
 lon_2 = -82
 
 alltor12 = pk.whats_up_doc(time_1, time_2,
-                       frequency = 'subseason', stat_choice = 'composite', tor_min=1,
+                       frequency = 'subseason', stat_choice = 'composite', tor_min=2,
                        enso_neutral=False, enso_only=False, nino_only=False, nina_only=False, gom_warm=False, gom_cold=False,
                        oni_demarcator=0.5, gom_quantile=0,
                        composite_type='anomaly', comp_comp='mean',
@@ -754,7 +754,7 @@ plt.setp(ax1.get_xticklabels(), fontsize=9, alpha=0)
 ax1.set_yticks(onis1)
 ax1.set_yticklabels(label1, fontsize=9, rotation=0)
 
-plt.title('a) Dec (E)F1+ CONUS Tornadoes and NDJ ONI',fontsize=18)
+plt.title('a) Dec (E)F2+ CONUS Tornadoes and NDJ ONI',fontsize=18)
 ax1.set_ylabel('Years Ranked by ONI',fontsize=16)
 
 for i, txt in enumerate(xlabels1):
@@ -780,7 +780,7 @@ plt.setp(ax2.get_xticklabels(), fontsize=9, alpha=0)
 ax2.set_yticks(onis2)
 ax2.set_yticklabels(label2, fontsize=10, rotation=0)
 
-plt.title('b) Jan (E)F1+ CONUS Tornadoes and DJF ONI',fontsize=18)
+plt.title('b) Jan (E)F2+ CONUS Tornadoes and DJF ONI',fontsize=18)
 
 for i, txt in enumerate(xlabels2):
     plt.annotate(txt, (p2[i], onis2[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
@@ -804,7 +804,7 @@ plt.setp(ax3.get_xticklabels(), fontsize=9, alpha=0)
 ax3.set_yticks(onis3)
 ax3.set_yticklabels(label3, fontsize=10, rotation=0)
 
-plt.title('c) Feb (E)F1+ CONUS Tornadoes and JFM ONI',fontsize=18)
+plt.title('c) Feb (E)F2+ CONUS Tornadoes and JFM ONI',fontsize=18)
 
 for i, txt in enumerate(xlabels3):
     plt.annotate(txt, (p3[i], onis3[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
@@ -828,7 +828,7 @@ plt.setp(ax4.get_xticklabels(), fontsize=9, alpha=0)
 ax4.set_yticks(onis4)
 ax4.set_yticklabels(label4, fontsize=10, rotation=0)
 
-plt.title('d) Mar (E)F1+ CONUS Tornadoes and FMA ONI',fontsize=18)
+plt.title('d) Mar (E)F2+ CONUS Tornadoes and FMA ONI',fontsize=18)
 ax4.set_ylabel('Years Ranked by ONI',fontsize=16)
 
 for i, txt in enumerate(xlabels4):
@@ -853,7 +853,7 @@ plt.setp(ax5.get_xticklabels(), fontsize=9, alpha=0)
 ax5.set_yticks(onis5)
 ax5.set_yticklabels(label5, fontsize=10, rotation=0)
 
-plt.title('e) Apr (E)F1+ CONUS Tornadoes and MAM ONI',fontsize=18)
+plt.title('e) Apr (E)F2+ CONUS Tornadoes and MAM ONI',fontsize=18)
 
 for i, txt in enumerate(xlabels5):
     plt.annotate(txt, (p5[i], onis5[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
@@ -877,7 +877,7 @@ plt.setp(ax6.get_xticklabels(), fontsize=9, alpha=0)
 ax6.set_yticks(onis6)
 ax6.set_yticklabels(label6, fontsize=10, rotation=0)
 
-plt.title('f) May (E)F1+ CONUS Tornadoes and AMJ ONI',fontsize=18)
+plt.title('f) May (E)F2+ CONUS Tornadoes and AMJ ONI',fontsize=18)
 
 for i, txt in enumerate(xlabels6):
     plt.annotate(txt, (p6[i], onis6[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
@@ -901,7 +901,7 @@ plt.setp(ax7.get_xticklabels(), fontsize=9, alpha=0)
 ax7.set_yticks(onis7)
 ax7.set_yticklabels(label7, fontsize=10, rotation=0)
 
-plt.title('g) Jun (E)F1+ CONUS Tornadoes and MJJ ONI',fontsize=18)
+plt.title('g) Jun (E)F2+ CONUS Tornadoes and MJJ ONI',fontsize=18)
 ax7.set_ylabel('Years Ranked by ONI',fontsize=16)
 
 for i, txt in enumerate(xlabels7):
@@ -926,7 +926,7 @@ plt.setp(ax8.get_xticklabels(), fontsize=9, alpha=0)
 ax8.set_yticks(onis8)
 ax8.set_yticklabels(label8, fontsize=10, rotation=0)
 
-plt.title('h) Jul (E)F1+ CONUS Tornadoes and JJA ONI',fontsize=18)
+plt.title('h) Jul (E)F2+ CONUS Tornadoes and JJA ONI',fontsize=18)
 
 for i, txt in enumerate(xlabels8):
     plt.annotate(txt, (p8[i], onis8[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
@@ -950,7 +950,7 @@ plt.setp(ax9.get_xticklabels(), fontsize=9, alpha=0)
 ax9.set_yticks(onis9)
 ax9.set_yticklabels(label9, fontsize=10, rotation=0)
 
-plt.title('i) Aug (E)F1+ CONUS Tornadoes and JAS ONI',fontsize=18)
+plt.title('i) Aug (E)F2+ CONUS Tornadoes and JAS ONI',fontsize=18)
    
 for i, txt in enumerate(xlabels9):
     plt.annotate(txt, (p9[i], onis9[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
@@ -976,7 +976,7 @@ ax10.set_xticklabels(ticks_cb, fontsize=12)
 ax10.set_yticks(onis10)
 ax10.set_yticklabels(label10, fontsize=10, rotation=0)
 
-plt.title('j) Sep (E)F1+ CONUS Tornadoes and ASO ONI',fontsize=18)
+plt.title('j) Sep (E)F2+ CONUS Tornadoes and ASO ONI',fontsize=18)
 ax10.set_ylabel('Years Ranked by ONI',fontsize=16)
 ax10.set_xlabel('% Climatological Frequency',fontsize=16)
 
@@ -1002,7 +1002,7 @@ plt.setp(ax11.get_xticklabels(), fontsize=9, alpha=0)
 ax11.set_yticks(onis11)
 ax11.set_yticklabels(label11, fontsize=10, rotation=0)
 
-plt.title('k) Oct (E)F1+ CONUS Tornadoes and SON ONI',fontsize=18)
+plt.title('k) Oct (E)F2+ CONUS Tornadoes and SON ONI',fontsize=18)
 #ax11.set_ylabel('Years Ranked by ONI',fontsize=14)
 #ax11.set_xlabel('Number of Tornadoes',fontsize=14)
 
@@ -1049,7 +1049,7 @@ ax12.set_xticklabels(ticks_cb, fontsize=12)
 ax12.set_yticks(onis12)
 ax12.set_yticklabels(label12, fontsize=10, rotation=0)
 
-plt.title('l) Nov (E)F1+ CONUS Tornadoes and OND ONI',fontsize=18)
+plt.title('l) Nov (E)F2+ CONUS Tornadoes and OND ONI',fontsize=18)
 #ax12.set_ylabel('Years Ranked by ONI',fontsize=14)
 ax12.set_xlabel('% Climatological Frequency',fontsize=16)
 
@@ -1062,7 +1062,7 @@ for i, txt in enumerate(xlabels12):
 ###############################################################################
 
 
-plt.savefig('john_fig.png',bbox_inches='tight',dpi=200)
+plt.savefig('john_fig2.png',bbox_inches='tight',dpi=200)
 
 
 ###############################################################################
