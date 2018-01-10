@@ -23,6 +23,7 @@ import datetime as dt
 import xarray as xr
 import pandas as pd
 from scipy.ndimage import gaussian_filter as gfilt
+import matplotlib.patches as mpatches
 #from itertools import product
 
 
@@ -944,6 +945,7 @@ lo_thresh2 = np.zeros(len(file1[:,0]))
 lo_thresh3 = np.zeros(len(file1[:,0]))
 lo_thresh4 = np.zeros(len(file1[:,0]))
 
+
 for i in xrange(len(file1[:,0])):
     
     hi_thresh1[i] = np.divide(np.nanpercentile(file1[i,:], 75.), np.sum(Gauss_SmoothAN1))
@@ -955,8 +957,21 @@ for i in xrange(len(file1[:,0])):
     lo_thresh2[i] = np.divide(np.nanpercentile(file2[i,:], 25.), np.sum(Gauss_SmoothAN2))
     lo_thresh3[i] = np.divide(np.nanpercentile(file3[i,:], 25.), np.sum(Gauss_SmoothAN3))
     lo_thresh4[i] = np.divide(np.nanpercentile(file4[i,:], 25.), np.sum(Gauss_SmoothAN4))
-
     
+'''
+   
+for i in xrange(len(file1[:,0])):
+    
+    hi_thresh1[i] = np.divide(np.nanpercentile(file1[i,:], 97.5), np.sum(Gauss_SmoothAN1))
+    hi_thresh2[i] = np.divide(np.nanpercentile(file2[i,:], 97.5), np.sum(Gauss_SmoothAN2))
+    hi_thresh3[i] = np.divide(np.nanpercentile(file3[i,:], 97.5), np.sum(Gauss_SmoothAN3))
+    hi_thresh4[i] = np.divide(np.nanpercentile(file4[i,:], 97.5), np.sum(Gauss_SmoothAN4))
+
+    lo_thresh1[i] = np.divide(np.nanpercentile(file1[i,:], 2.5), np.sum(Gauss_SmoothAN1))
+    lo_thresh2[i] = np.divide(np.nanpercentile(file2[i,:], 2.5), np.sum(Gauss_SmoothAN2))
+    lo_thresh3[i] = np.divide(np.nanpercentile(file3[i,:], 2.5), np.sum(Gauss_SmoothAN3))
+    lo_thresh4[i] = np.divide(np.nanpercentile(file4[i,:], 2.5), np.sum(Gauss_SmoothAN4))
+''' 
 
 ###############################################################################
 ###############################################################################
@@ -975,6 +990,8 @@ def myticks(x,pos):
     return r"${:2.0f} \times 10^{{ {:2d} }}$".format(coeff,exponent)
 '''
 
+grey_patch = mpatches.Patch(color='grey', alpha=0.4, label='All')
+
 
 fig = plt.figure(figsize=(8,12))
 
@@ -984,9 +1001,9 @@ ax1 = fig.add_axes([0.0, 0.75, 0.95, 0.225])
 p1, = ax1.plot(range(0,total_days),Gauss_SmoothTELN1/np.sum(Gauss_SmoothTELN1),'r-',linewidth=2.0)
 p2, = ax1.plot(range(0,total_days),Gauss_SmoothTLN1/np.sum(Gauss_SmoothTLN1),'b-',linewidth=2.0)
 p3, = ax1.plot(range(0,total_days),Gauss_SmoothTN1/np.sum(Gauss_SmoothTN1),'k-',linewidth=2.0)    
-p4, = ax1.plot(range(0,total_days),Gauss_SmoothAN1/np.sum(Gauss_SmoothAN1),'--',color='grey',linewidth=2.0)  
+#p4, = ax1.plot(range(0,total_days),Gauss_SmoothAN1/np.sum(Gauss_SmoothAN1),'--',color='grey',linewidth=2.0)  
 
-p5 = ax1.fill_between(range(0,total_days),lo_thresh1,hi_thresh1,color='grey',linewidth=1.0,alpha=0.5)
+p5 = ax1.fill_between(range(0,total_days),lo_thresh1,hi_thresh1,color='grey',linewidth=1.0,alpha=0.4)
 
 ax1.set_ylabel('Fraction of Tornado Reports (EF1+)', fontsize=10)
 
@@ -1000,7 +1017,7 @@ ax1.set_title('a) Annual Cycle of CONUS EF1+ Tornado Reports')
 
 ax1.grid(True, linestyle='--', alpha=0.5)
 
-legend = plt.legend([p1,p2,p3,p4],
+legend = plt.legend([p1,p2,p3,grey_patch],
                     [u"El Ni\xf1o",
                     u"La Ni\xf1a",
                     "Neutral",
@@ -1015,13 +1032,14 @@ ax2 = fig.add_axes([0.0, 0.5, 0.95, 0.225])
 p1, = ax2.plot(range(0,total_days),Gauss_SmoothTELN2/np.sum(Gauss_SmoothTELN2),'r-',linewidth=2.0)
 p2, = ax2.plot(range(0,total_days),Gauss_SmoothTLN2/np.sum(Gauss_SmoothTLN2),'b-',linewidth=2.0)
 p3, = ax2.plot(range(0,total_days),Gauss_SmoothTN2/np.sum(Gauss_SmoothTN2),'k-',linewidth=2.0)    
-p4, = ax2.plot(range(0,total_days),Gauss_SmoothAN2/np.sum(Gauss_SmoothAN2),'--',color='grey',linewidth=2.0)  
+#p4, = ax2.plot(range(0,total_days),Gauss_SmoothAN2/np.sum(Gauss_SmoothAN2),'--',color='grey',linewidth=2.0)  
 
-p5 = ax2.fill_between(range(0,total_days),lo_thresh2,hi_thresh2,color='grey',linewidth=1.0,alpha=0.5)
+p5 = ax2.fill_between(range(0,total_days),lo_thresh2,hi_thresh2,color='grey',linewidth=1.0,alpha=0.4)
 
 ax2.set_ylabel('Fraction of Tornado Reports (EF2+)', fontsize=10)
 
-ax2.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008])
+#ax2.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008])
+ax2.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008,0.009,0.010])
 plt.setp(ax2.get_yticklabels(), fontsize=10, rotation=35)
 #ax2.yaxis.set_major_formatter(ticker.FuncFormatter(myticks))
 
@@ -1031,13 +1049,7 @@ ax2.set_title('b) Annual Cycle of CONUS EF2+ Tornado Reports')
 
 ax2.grid(True, linestyle='--', alpha=0.5)
 
-legend = plt.legend([p1,p2,p3,p4],
-                    [u"El Ni\xf1o",
-                    u"La Ni\xf1a",
-                    "Neutral",
-                    "All"],
-                    loc="upper right",
-                    fancybox=True, fontsize=12)
+
 
 
 ax3 = fig.add_axes([0.0, 0.25, 0.95, 0.225]) 
@@ -1045,9 +1057,9 @@ ax3 = fig.add_axes([0.0, 0.25, 0.95, 0.225])
 p1, = ax3.plot(range(0,total_days),Gauss_SmoothTELN3/np.sum(Gauss_SmoothTELN3),'r-',linewidth=2.0)
 p2, = ax3.plot(range(0,total_days),Gauss_SmoothTLN3/np.sum(Gauss_SmoothTLN3),'b-',linewidth=2.0)
 p3, = ax3.plot(range(0,total_days),Gauss_SmoothTN3/np.sum(Gauss_SmoothTN3),'k-',linewidth=2.0)    
-p4, = ax3.plot(range(0,total_days),Gauss_SmoothAN3/np.sum(Gauss_SmoothAN3),'--',color='grey',linewidth=2.0)  
+#p4, = ax3.plot(range(0,total_days),Gauss_SmoothAN3/np.sum(Gauss_SmoothAN3),'--',color='grey',linewidth=2.0)  
 
-p5 = ax3.fill_between(range(0,total_days),lo_thresh3,hi_thresh3,color='grey',linewidth=1.0,alpha=0.5)
+p5 = ax3.fill_between(range(0,total_days),lo_thresh3,hi_thresh3,color='grey',linewidth=1.0,alpha=0.4)
 
 ax3.set_ylabel('Fraction of Tornado Reports (EF1+)', fontsize=10)
 
@@ -1061,13 +1073,7 @@ ax3.set_title('c) Annual Cycle of Southeast EF1+ Tornado Reports')
 
 ax3.grid(True, linestyle='--', alpha=0.5)
 
-legend = plt.legend([p1,p2,p3,p4],
-                    [u"El Ni\xf1o",
-                    u"La Ni\xf1a",
-                    "Neutral",
-                    "All"],
-                    loc="upper right",
-                    fancybox=True, fontsize=12)
+
 
 
 
@@ -1076,14 +1082,15 @@ ax4 = fig.add_axes([0.0, 0.0, 0.95, 0.225])
 p1, = ax4.plot(range(0,total_days),Gauss_SmoothTELN4/np.sum(Gauss_SmoothTELN4),'r-',linewidth=2.0)
 p2, = ax4.plot(range(0,total_days),Gauss_SmoothTLN4/np.sum(Gauss_SmoothTLN4),'b-',linewidth=2.0)
 p3, = ax4.plot(range(0,total_days),Gauss_SmoothTN4/np.sum(Gauss_SmoothTN4),'k-',linewidth=2.0)    
-p4, = ax4.plot(range(0,total_days),Gauss_SmoothAN4/np.sum(Gauss_SmoothAN4),'--',color='grey',linewidth=2.0)  
+#p4, = ax4.plot(range(0,total_days),Gauss_SmoothAN4/np.sum(Gauss_SmoothAN4),'--',color='grey',linewidth=2.0)  
 
-p5 = ax4.fill_between(range(0,total_days),lo_thresh4,hi_thresh4,color='grey',linewidth=1.0,alpha=0.5)
+p5 = ax4.fill_between(range(0,total_days),lo_thresh4,hi_thresh4,color='grey',linewidth=1.0,alpha=0.4)
 
 ax4.set_ylabel('Fraction of Tornado Reports (EF2+)', fontsize=10)
 ax4.set_xlabel('Day of Year', fontsize=10)
 
-ax4.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008])
+#ax4.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008])
+ax4.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008,0.009])
 plt.setp(ax4.get_yticklabels(), fontsize=10, rotation=35)
 #ax4.yaxis.set_major_formatter(ticker.FuncFormatter(myticks))
 
@@ -1095,13 +1102,7 @@ ax4.set_title('d) Annual Cycle of Southeast EF2+ Tornado Reports')
 
 ax4.grid(True, linestyle='--', alpha=0.5)
 
-legend = plt.legend([p1,p2,p3,p4],
-                    [u"El Ni\xf1o",
-                    u"La Ni\xf1a",
-                    "Neutral",
-                    "All"],
-                    loc="upper right",
-                    fancybox=True, fontsize=12)
+
 
 plt.savefig('wut_5.png', bbox_inches='tight', dpi=200)
 
