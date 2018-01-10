@@ -1021,7 +1021,7 @@ legend = plt.legend([p1,p2,p3,grey_patch],
                     [u"El Ni\xf1o",
                     u"La Ni\xf1a",
                     "Neutral",
-                    "All"],
+                    "IQR"],
                     loc="upper right",
                     fancybox=True, fontsize=12)
 
