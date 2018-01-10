@@ -1116,13 +1116,7 @@ ax1.set_title('a) ENSO Years Annual Cycle of CONUS EF1+ Tornado Reports')
 
 ax1.grid(True, linestyle='--', alpha=0.5)
 
-legend = plt.legend([p1,p2,p3,p4],
-                    [u"El Ni\xf1o",
-                    u"La Ni\xf1a",
-                    "Neutral",
-                    "All"],
-                    loc="upper right",
-                    fancybox=True, fontsize=12)
+
 
 
 
@@ -1195,13 +1189,6 @@ ax3.set_title('c) ENSO Years Annual Cycle of Southeast EF1+ Tornado Reports')
 
 ax3.grid(True, linestyle='--', alpha=0.5)
 
-legend = plt.legend([p1,p2,p3,p4],
-                    [u"El Ni\xf1o",
-                    u"La Ni\xf1a",
-                    "Neutral",
-                    "All"],
-                    loc="upper right",
-                    fancybox=True, fontsize=12)
 
 
 
@@ -1236,13 +1223,7 @@ ax4.set_title('d) ENSO Years Annual Cycle of Southeast EF2+ Tornado Reports')
 
 ax4.grid(True, linestyle='--', alpha=0.5)
 
-legend = plt.legend([p1,p2,p3,p4],
-                    [u"El Ni\xf1o",
-                    u"La Ni\xf1a",
-                    "Neutral",
-                    "All"],
-                    loc="upper right",
-                    fancybox=True, fontsize=12)
+
 
 plt.savefig('wut.png', bbox_inches='tight', dpi=200)
 
