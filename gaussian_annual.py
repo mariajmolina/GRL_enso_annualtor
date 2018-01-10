@@ -20,7 +20,10 @@ import numpy as np
 import mm_pkg as pk
 import matplotlib.pyplot as plt
 import datetime as dt
+import xarray as xr
+import pandas as pd
 from scipy.ndimage import gaussian_filter as gfilt
+#from itertools import product
 
 
 ###############################################################################
@@ -112,7 +115,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_a = dt.datetime(year_a[n],month_a[n],day_a[n])
         Julianday_all.append(Date_a.strftime('%j'))
 
-    year_all[k] = np.unique(alltor0.severe['UTC_yr'].values)
+    year_all[k] = len(alltor0.all_base_yrs)
     
 
     print 'loop neutral...'
@@ -125,7 +128,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_n = dt.datetime(year_n[n],month_n[n],day_n[n])
         Julianday_neutral.append(Date_n.strftime('%j'))
 
-    year_neutral[k] = np.unique(alltor1.severe['UTC_yr'].values)
+    year_neutral[k] = len(alltor1.neutral_base_yrs)
 
 
     print 'loop nina...'    
@@ -138,7 +141,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_en = dt.datetime(year_en[n],month_en[n],day_en[n])
         Julianday_nino.append(Date_en.strftime('%j'))
     
-    year_nino[k] = np.unique(alltor2.severe['UTC_yr'].values)
+    year_nino[k] = len(alltor2.el_nino_yrs)
 
 
     print 'loop nina...'    
@@ -151,7 +154,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_ln = dt.datetime(year_ln[n],month_ln[n],day_ln[n])
         Julianday_nina.append(Date_ln.strftime('%j'))
 
-    year_nina[k] = np.unique(alltor3.severe['UTC_yr'].values)
+    year_nina[k] = len(alltor3.la_nina_yrs)
     
     
 ###############################################################################
@@ -206,10 +209,10 @@ Gauss_SmoothTLN = []
 
 for q in total_days_three:
     for w in xrange(len(year_nina)):
-        Gauss_SmoothAN.append(HistoA[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_all[w]))  
-        Gauss_SmoothTN.append(HistoN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_neutral[w]))   
-        Gauss_SmoothTELN.append(HistoEN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_nino[w]))
-        Gauss_SmoothTLN.append(HistoLN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_nina[w]))
+        Gauss_SmoothAN.append(HistoA[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_all[w]))
+        Gauss_SmoothTN.append(HistoN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_neutral[w]))  
+        Gauss_SmoothTELN.append(HistoEN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_nino[w]))
+        Gauss_SmoothTLN.append(HistoLN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_nina[w]))
 
 Gauss_SmoothAN = np.concatenate(Gauss_SmoothAN).ravel()
 Gauss_SmoothTN = np.concatenate(Gauss_SmoothTN).ravel()
@@ -319,7 +322,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_a = dt.datetime(year_a[n],month_a[n],day_a[n])
         Julianday_all.append(Date_a.strftime('%j'))
 
-    year_all[k] = np.unique(alltor0.severe['UTC_yr'].values)
+    year_all[k] = len(alltor0.all_base_yrs)
     
 
     print 'loop neutral...'
@@ -332,7 +335,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_n = dt.datetime(year_n[n],month_n[n],day_n[n])
         Julianday_neutral.append(Date_n.strftime('%j'))
 
-    year_neutral[k] = np.unique(alltor1.severe['UTC_yr'].values)
+    year_neutral[k] = len(alltor1.neutral_base_yrs)
 
 
     print 'loop nina...'    
@@ -345,7 +348,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_en = dt.datetime(year_en[n],month_en[n],day_en[n])
         Julianday_nino.append(Date_en.strftime('%j'))
     
-    year_nino[k] = np.unique(alltor2.severe['UTC_yr'].values)
+    year_nino[k] = len(alltor2.el_nino_yrs)
 
 
     print 'loop nina...'    
@@ -358,7 +361,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_ln = dt.datetime(year_ln[n],month_ln[n],day_ln[n])
         Julianday_nina.append(Date_ln.strftime('%j'))
 
-    year_nina[k] = np.unique(alltor3.severe['UTC_yr'].values)
+    year_nina[k] = len(alltor3.la_nina_yrs)
     
     
 ###############################################################################
@@ -413,10 +416,10 @@ Gauss_SmoothTLN = []
 
 for q in total_days_three:
     for w in xrange(len(year_nina)):
-        Gauss_SmoothAN.append(HistoA[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_all[w]))  
-        Gauss_SmoothTN.append(HistoN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_neutral[w]))   
-        Gauss_SmoothTELN.append(HistoEN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_nino[w]))
-        Gauss_SmoothTLN.append(HistoLN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_nina[w]))
+        Gauss_SmoothAN.append(HistoA[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_all[w]))  
+        Gauss_SmoothTN.append(HistoN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_neutral[w]))   
+        Gauss_SmoothTELN.append(HistoEN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_nino[w]))
+        Gauss_SmoothTLN.append(HistoLN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_nina[w]))
 
 Gauss_SmoothAN = np.concatenate(Gauss_SmoothAN).ravel()
 Gauss_SmoothTN = np.concatenate(Gauss_SmoothTN).ravel()
@@ -526,7 +529,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_a = dt.datetime(year_a[n],month_a[n],day_a[n])
         Julianday_all.append(Date_a.strftime('%j'))
 
-    year_all[k] = np.unique(alltor0.severe['UTC_yr'].values)
+    year_all[k] = len(alltor0.all_base_yrs)
     
 
     print 'loop neutral...'
@@ -539,7 +542,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_n = dt.datetime(year_n[n],month_n[n],day_n[n])
         Julianday_neutral.append(Date_n.strftime('%j'))
 
-    year_neutral[k] = np.unique(alltor1.severe['UTC_yr'].values)
+    year_neutral[k] = len(alltor1.neutral_base_yrs)
 
 
     print 'loop nina...'    
@@ -552,7 +555,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_en = dt.datetime(year_en[n],month_en[n],day_en[n])
         Julianday_nino.append(Date_en.strftime('%j'))
     
-    year_nino[k] = np.unique(alltor2.severe['UTC_yr'].values)
+    year_nino[k] = len(alltor2.el_nino_yrs)
 
 
     print 'loop nina...'    
@@ -565,7 +568,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_ln = dt.datetime(year_ln[n],month_ln[n],day_ln[n])
         Julianday_nina.append(Date_ln.strftime('%j'))
 
-    year_nina[k] = np.unique(alltor3.severe['UTC_yr'].values)
+    year_nina[k] = len(alltor3.la_nina_yrs)
     
     
 ###############################################################################
@@ -620,10 +623,10 @@ Gauss_SmoothTLN = []
 
 for q in total_days_three:
     for w in xrange(len(year_nina)):
-        Gauss_SmoothAN.append(HistoA[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_all[w]))  
-        Gauss_SmoothTN.append(HistoN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_neutral[w]))   
-        Gauss_SmoothTELN.append(HistoEN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_nino[w]))
-        Gauss_SmoothTLN.append(HistoLN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_nina[w]))
+        Gauss_SmoothAN.append(HistoA[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_all[w]))  
+        Gauss_SmoothTN.append(HistoN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_neutral[w]))   
+        Gauss_SmoothTELN.append(HistoEN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_nino[w]))
+        Gauss_SmoothTLN.append(HistoLN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_nina[w]))
 
 Gauss_SmoothAN = np.concatenate(Gauss_SmoothAN).ravel()
 Gauss_SmoothTN = np.concatenate(Gauss_SmoothTN).ravel()
@@ -733,7 +736,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_a = dt.datetime(year_a[n],month_a[n],day_a[n])
         Julianday_all.append(Date_a.strftime('%j'))
 
-    year_all[k] = np.unique(alltor0.severe['UTC_yr'].values)
+    year_all[k] = len(alltor0.all_base_yrs)
     
 
     print 'loop neutral...'
@@ -746,7 +749,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_n = dt.datetime(year_n[n],month_n[n],day_n[n])
         Julianday_neutral.append(Date_n.strftime('%j'))
 
-    year_neutral[k] = np.unique(alltor1.severe['UTC_yr'].values)
+    year_neutral[k] = len(alltor1.neutral_base_yrs)
 
 
     print 'loop nina...'    
@@ -759,7 +762,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_en = dt.datetime(year_en[n],month_en[n],day_en[n])
         Julianday_nino.append(Date_en.strftime('%j'))
     
-    year_nino[k] = np.unique(alltor2.severe['UTC_yr'].values)
+    year_nino[k] = len(alltor2.el_nino_yrs)
 
 
     print 'loop nina...'    
@@ -772,7 +775,7 @@ for k, (i, j) in enumerate(zip(month_list, day_list)):
         Date_ln = dt.datetime(year_ln[n],month_ln[n],day_ln[n])
         Julianday_nina.append(Date_ln.strftime('%j'))
 
-    year_nina[k] = np.unique(alltor3.severe['UTC_yr'].values)
+    year_nina[k] = len(alltor3.la_nina_yrs)
     
     
 ###############################################################################
@@ -827,10 +830,10 @@ Gauss_SmoothTLN = []
 
 for q in total_days_three:
     for w in xrange(len(year_nina)):
-        Gauss_SmoothAN.append(HistoA[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_all[w]))  
-        Gauss_SmoothTN.append(HistoN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_neutral[w]))   
-        Gauss_SmoothTELN.append(HistoEN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_nino[w]))
-        Gauss_SmoothTLN.append(HistoLN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/len(year_nina[w]))
+        Gauss_SmoothAN.append(HistoA[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_all[w]))  
+        Gauss_SmoothTN.append(HistoN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_neutral[w]))   
+        Gauss_SmoothTELN.append(HistoEN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_nino[w]))
+        Gauss_SmoothTLN.append(HistoLN[(np.sum(days_loop[:w+1])+q):(np.sum(days_loop[:w+2])+(q))]/(year_nina[w]))
 
 Gauss_SmoothAN = np.concatenate(Gauss_SmoothAN).ravel()
 Gauss_SmoothTN = np.concatenate(Gauss_SmoothTN).ravel()
@@ -853,6 +856,108 @@ Gauss_SmoothTLN4 = Gauss_SmoothTLN[total_days_three[1]:total_days_three[2]]
 ###############################################################################
 ###############################################################################
 ###############################################################################
+
+
+US_tors_ef1 = xr.open_dataset('tors_5316_ef1_obs', decode_cf=True)
+US_tors_ef2 = xr.open_dataset('tors_5316_ef2_obs', decode_cf=True)
+SE_tors_ef1 = xr.open_dataset('tors_5316_ef1_SE_obs', decode_cf=True)
+SE_tors_ef2 = xr.open_dataset('tors_5316_ef2_SE_obs', decode_cf=True)
+
+US_nuyr_ef1 = len(US_tors_ef1.grid.groupby('time.year').sum('time').year.values)
+US_nuyr_ef2 = len(US_tors_ef2.grid.groupby('time.year').sum('time').year.values)
+SE_nuyr_ef1 = len(SE_tors_ef1.grid.groupby('time.year').sum('time').year.values)
+SE_nuyr_ef2 = len(SE_tors_ef2.grid.groupby('time.year').sum('time').year.values)
+
+US_sumtors_ef1 = US_tors_ef1.grid.sum(['x','y'])
+US_sumtors_ef2 = US_tors_ef2.grid.sum(['x','y'])
+SE_sumtors_ef1 = SE_tors_ef1.grid.sum(['x','y'])
+SE_sumtors_ef2 = SE_tors_ef2.grid.sum(['x','y'])
+
+years_count = US_tors_ef1.grid.groupby('time.year').sum('time').year.values
+
+
+sliced_ef1_US = {}
+sliced_ef2_US = {}
+sliced_ef1_SE = {}
+sliced_ef2_SE = {}
+
+for u, i in enumerate(years_count):
+
+    temp_US_ef1 = US_sumtors_ef1.sel(time=slice(pd.to_datetime(str(i)+'-01-01'),pd.to_datetime(str(i)+'-12-31')))
+    temp_US_ef2 = US_sumtors_ef2.sel(time=slice(pd.to_datetime(str(i)+'-01-01'),pd.to_datetime(str(i)+'-12-31')))
+    temp_SE_ef1 = SE_sumtors_ef1.sel(time=slice(pd.to_datetime(str(i)+'-01-01'),pd.to_datetime(str(i)+'-12-31')))
+    temp_SE_ef2 = SE_sumtors_ef2.sel(time=slice(pd.to_datetime(str(i)+'-01-01'),pd.to_datetime(str(i)+'-12-31')))
+
+    three_sum_ef1_US = xr.concat([temp_US_ef1,temp_US_ef1,temp_US_ef1], dim='time')
+    three_sum_ef2_US = xr.concat([temp_US_ef2,temp_US_ef2,temp_US_ef2], dim='time')
+    three_sum_ef1_SE = xr.concat([temp_SE_ef1,temp_SE_ef1,temp_SE_ef1], dim='time')
+    three_sum_ef2_SE = xr.concat([temp_SE_ef2,temp_SE_ef2,temp_SE_ef2], dim='time')
+
+    Gauss_Smooth_ef1_US = gfilt(three_sum_ef1_US*1.0, sigma=15.0)
+    Gauss_Smooth_ef2_US = gfilt(three_sum_ef2_US*1.0, sigma=15.0)
+    Gauss_Smooth_ef1_SE = gfilt(three_sum_ef1_SE*1.0, sigma=15.0)
+    Gauss_Smooth_ef2_SE = gfilt(three_sum_ef2_SE*1.0, sigma=15.0)
+
+    sliced_ef1_US[u] = Gauss_Smooth_ef1_US[len(temp_US_ef1):len(temp_US_ef1)*2]
+    sliced_ef2_US[u] = Gauss_Smooth_ef2_US[len(temp_US_ef2):len(temp_US_ef2)*2]
+    sliced_ef1_SE[u] = Gauss_Smooth_ef1_SE[len(temp_SE_ef1):len(temp_SE_ef1)*2]
+    sliced_ef2_SE[u] = Gauss_Smooth_ef2_SE[len(temp_SE_ef2):len(temp_SE_ef2)*2]
+
+
+for i in xrange(len(sliced_ef1_US)):   
+    
+    if i == 0:
+        
+        files_1 = sliced_ef1_US[i]
+        files_2 = sliced_ef2_US[i]
+        files_3 = sliced_ef1_SE[i]
+        files_4 = sliced_ef2_SE[i]
+    
+    if i == 1:
+    
+        files1 = np.dstack([files_1, sliced_ef1_US[i]])    
+        files2 = np.dstack([files_2, sliced_ef2_US[i]]) 
+        files3 = np.dstack([files_3, sliced_ef1_SE[i]]) 
+        files4 = np.dstack([files_4, sliced_ef2_SE[i]])
+        
+    if i > 1:
+        
+        files1 = np.dstack([files1, sliced_ef1_US[i][:365]])    
+        files2 = np.dstack([files2, sliced_ef2_US[i][:365]]) 
+        files3 = np.dstack([files3, sliced_ef1_SE[i][:365]]) 
+        files4 = np.dstack([files4, sliced_ef2_SE[i][:365]])        
+        
+        
+file1 = np.squeeze(files1)
+file2 = np.squeeze(files2)
+file3 = np.squeeze(files3)
+file4 = np.squeeze(files4)
+
+
+hi_thresh1 = np.zeros(len(file1[:,0]))
+hi_thresh2 = np.zeros(len(file1[:,0]))
+hi_thresh3 = np.zeros(len(file1[:,0]))
+hi_thresh4 = np.zeros(len(file1[:,0]))
+
+lo_thresh1 = np.zeros(len(file1[:,0]))
+lo_thresh2 = np.zeros(len(file1[:,0]))
+lo_thresh3 = np.zeros(len(file1[:,0]))
+lo_thresh4 = np.zeros(len(file1[:,0]))
+
+for i in xrange(len(file1[:,0])):
+    
+    hi_thresh1[i] = np.divide(np.nanpercentile(file1[i,:], 75.), np.sum(Gauss_SmoothAN1))
+    hi_thresh2[i] = np.divide(np.nanpercentile(file2[i,:], 75.), np.sum(Gauss_SmoothAN2))
+    hi_thresh3[i] = np.divide(np.nanpercentile(file3[i,:], 75.), np.sum(Gauss_SmoothAN3))
+    hi_thresh4[i] = np.divide(np.nanpercentile(file4[i,:], 75.), np.sum(Gauss_SmoothAN4))
+
+    lo_thresh1[i] = np.divide(np.nanpercentile(file1[i,:], 25.), np.sum(Gauss_SmoothAN1))
+    lo_thresh2[i] = np.divide(np.nanpercentile(file2[i,:], 25.), np.sum(Gauss_SmoothAN2))
+    lo_thresh3[i] = np.divide(np.nanpercentile(file3[i,:], 25.), np.sum(Gauss_SmoothAN3))
+    lo_thresh4[i] = np.divide(np.nanpercentile(file4[i,:], 25.), np.sum(Gauss_SmoothAN4))
+
+    
+
 ###############################################################################
 ###############################################################################
 ###############################################################################
@@ -880,6 +985,8 @@ p1, = ax1.plot(range(0,total_days),Gauss_SmoothTELN1/np.sum(Gauss_SmoothTELN1),'
 p2, = ax1.plot(range(0,total_days),Gauss_SmoothTLN1/np.sum(Gauss_SmoothTLN1),'b-',linewidth=2.0)
 p3, = ax1.plot(range(0,total_days),Gauss_SmoothTN1/np.sum(Gauss_SmoothTN1),'k-',linewidth=2.0)    
 p4, = ax1.plot(range(0,total_days),Gauss_SmoothAN1/np.sum(Gauss_SmoothAN1),'--',color='grey',linewidth=2.0)  
+
+p5 = ax1.fill_between(range(0,total_days),lo_thresh1,hi_thresh1,color='grey',linewidth=1.0,alpha=0.5)
 
 ax1.set_ylabel('Fraction of Tornado Reports (EF1+)', fontsize=10)
 
@@ -910,6 +1017,8 @@ p2, = ax2.plot(range(0,total_days),Gauss_SmoothTLN2/np.sum(Gauss_SmoothTLN2),'b-
 p3, = ax2.plot(range(0,total_days),Gauss_SmoothTN2/np.sum(Gauss_SmoothTN2),'k-',linewidth=2.0)    
 p4, = ax2.plot(range(0,total_days),Gauss_SmoothAN2/np.sum(Gauss_SmoothAN2),'--',color='grey',linewidth=2.0)  
 
+p5 = ax2.fill_between(range(0,total_days),lo_thresh2,hi_thresh2,color='grey',linewidth=1.0,alpha=0.5)
+
 ax2.set_ylabel('Fraction of Tornado Reports (EF2+)', fontsize=10)
 
 ax2.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008])
@@ -937,6 +1046,8 @@ p1, = ax3.plot(range(0,total_days),Gauss_SmoothTELN3/np.sum(Gauss_SmoothTELN3),'
 p2, = ax3.plot(range(0,total_days),Gauss_SmoothTLN3/np.sum(Gauss_SmoothTLN3),'b-',linewidth=2.0)
 p3, = ax3.plot(range(0,total_days),Gauss_SmoothTN3/np.sum(Gauss_SmoothTN3),'k-',linewidth=2.0)    
 p4, = ax3.plot(range(0,total_days),Gauss_SmoothAN3/np.sum(Gauss_SmoothAN3),'--',color='grey',linewidth=2.0)  
+
+p5 = ax3.fill_between(range(0,total_days),lo_thresh3,hi_thresh3,color='grey',linewidth=1.0,alpha=0.5)
 
 ax3.set_ylabel('Fraction of Tornado Reports (EF1+)', fontsize=10)
 
@@ -967,6 +1078,8 @@ p2, = ax4.plot(range(0,total_days),Gauss_SmoothTLN4/np.sum(Gauss_SmoothTLN4),'b-
 p3, = ax4.plot(range(0,total_days),Gauss_SmoothTN4/np.sum(Gauss_SmoothTN4),'k-',linewidth=2.0)    
 p4, = ax4.plot(range(0,total_days),Gauss_SmoothAN4/np.sum(Gauss_SmoothAN4),'--',color='grey',linewidth=2.0)  
 
+p5 = ax4.fill_between(range(0,total_days),lo_thresh4,hi_thresh4,color='grey',linewidth=1.0,alpha=0.5)
+
 ax4.set_ylabel('Fraction of Tornado Reports (EF2+)', fontsize=10)
 ax4.set_xlabel('Day of Year', fontsize=10)
 
@@ -990,7 +1103,7 @@ legend = plt.legend([p1,p2,p3,p4],
                     loc="upper right",
                     fancybox=True, fontsize=12)
 
-plt.savefig('wut.png', bbox_inches='tight', dpi=200)
+plt.savefig('wut_5.png', bbox_inches='tight', dpi=200)
 
 #plt.show()
 
@@ -998,3 +1111,136 @@ plt.savefig('wut.png', bbox_inches='tight', dpi=200)
 ###############################################################################
 ###############################################################################
 ###############################################################################
+
+'''
+US_tors_ef1 = xr.open_dataset('tors_5316_ef1_obs', decode_cf=True)
+US_tors_ef2 = xr.open_dataset('tors_5316_ef2_obs', decode_cf=True)
+SE_tors_ef1 = xr.open_dataset('tors_5316_ef1_SE_obs', decode_cf=True)
+SE_tors_ef2 = xr.open_dataset('tors_5316_ef2_SE_obs', decode_cf=True)
+
+US_nuyr_ef1 = len(US_tors_ef1.grid.groupby('time.year').sum('time').year.values)
+US_nuyr_ef2 = len(US_tors_ef2.grid.groupby('time.year').sum('time').year.values)
+SE_nuyr_ef1 = len(SE_tors_ef1.grid.groupby('time.year').sum('time').year.values)
+SE_nuyr_ef2 = len(SE_tors_ef2.grid.groupby('time.year').sum('time').year.values)
+
+US_sumtors_ef1 = US_tors_ef1.grid.sum(['x','y'])
+US_sumtors_ef2 = US_tors_ef2.grid.sum(['x','y'])
+SE_sumtors_ef1 = SE_tors_ef1.grid.sum(['x','y'])
+SE_sumtors_ef2 = SE_tors_ef2.grid.sum(['x','y'])
+
+years_count = US_tors_ef1.grid.groupby('time.year').sum('time').year.values
+
+
+temp_US_ef1 = {}
+temp_US_ef2 = {}
+temp_SE_ef1 = {}
+temp_SE_ef2 = {}
+
+for u, i in enumerate(years_count):
+
+    temp_US_ef1[u] = US_sumtors_ef1.sel(time=slice(pd.to_datetime(str(i)+'-01-01'),pd.to_datetime(str(i)+'-12-31')))
+    temp_US_ef2[u] = US_sumtors_ef2.sel(time=slice(pd.to_datetime(str(i)+'-01-01'),pd.to_datetime(str(i)+'-12-31')))
+    temp_SE_ef1[u] = SE_sumtors_ef1.sel(time=slice(pd.to_datetime(str(i)+'-01-01'),pd.to_datetime(str(i)+'-12-31')))
+    temp_SE_ef2[u] = SE_sumtors_ef2.sel(time=slice(pd.to_datetime(str(i)+'-01-01'),pd.to_datetime(str(i)+'-12-31')))
+    
+    if u == 0:
+        
+        files_1 = temp_US_ef1[u]
+        files_2 = temp_US_ef2[u]
+        files_3 = temp_SE_ef1[u]
+        files_4 = temp_SE_ef2[u]
+    
+    if u == 1:
+    
+        files1 = np.dstack([files_1, temp_US_ef1[u]])    
+        files2 = np.dstack([files_2, temp_US_ef2[u]]) 
+        files3 = np.dstack([files_3, temp_SE_ef1[u]]) 
+        files4 = np.dstack([files_4, temp_SE_ef2[u]])
+        
+    if u > 1:
+        
+        files1 = np.dstack([files1, temp_US_ef1[u][:365]])    
+        files2 = np.dstack([files2, temp_US_ef2[u][:365]]) 
+        files3 = np.dstack([files3, temp_SE_ef1[u][:365]]) 
+        files4 = np.dstack([files4, temp_SE_ef2[u][:365]])
+        
+    
+file1 = np.squeeze(files1)
+file2 = np.squeeze(files2)
+file3 = np.squeeze(files3)
+file4 = np.squeeze(files4)
+
+
+hi_thresh1 = np.zeros(len(file1[:,0]))
+hi_thresh2 = np.zeros(len(file1[:,0]))
+hi_thresh3 = np.zeros(len(file1[:,0]))
+hi_thresh4 = np.zeros(len(file1[:,0]))
+
+lo_thresh1 = np.zeros(len(file1[:,0]))
+lo_thresh2 = np.zeros(len(file1[:,0]))
+lo_thresh3 = np.zeros(len(file1[:,0]))
+lo_thresh4 = np.zeros(len(file1[:,0]))
+
+for i in xrange(len(file1[:,0])):
+    
+    hi_thresh1[i] = np.nanpercentile(file1[i,:], 97.5)
+    hi_thresh2[i] = np.nanpercentile(file2[i,:], 97.5)
+    hi_thresh3[i] = np.nanpercentile(file3[i,:], 97.5)
+    hi_thresh4[i] = np.nanpercentile(file4[i,:], 97.5)
+
+    lo_thresh1[i] = np.nanpercentile(file1[i,:], 2.5)
+    lo_thresh2[i] = np.nanpercentile(file2[i,:], 2.5)
+    lo_thresh3[i] = np.nanpercentile(file3[i,:], 2.5)
+    lo_thresh4[i] = np.nanpercentile(file4[i,:], 2.5)
+    
+    
+
+
+
+
+for i in xrange(len(temp_US_ef1[0])):
+    
+    
+    
+    
+
+    three_sum_ef1_US = xr.concat([temp_US_ef1,temp_US_ef1,temp_US_ef1], dim='time')
+    three_sum_ef2_US = xr.concat([temp_US_ef2,temp_US_ef2,temp_US_ef2], dim='time')
+    three_sum_ef1_SE = xr.concat([temp_SE_ef1,temp_SE_ef1,temp_SE_ef1], dim='time')
+    three_sum_ef2_SE = xr.concat([temp_SE_ef2,temp_SE_ef2,temp_SE_ef2], dim='time')
+
+    Gauss_Smooth_ef1_US = gfilt(three_sum_ef1_US*1.0, sigma=15.0)
+    Gauss_Smooth_ef2_US = gfilt(three_sum_ef2_US*1.0, sigma=15.0)
+    Gauss_Smooth_ef1_SE = gfilt(three_sum_ef1_SE*1.0, sigma=15.0)
+    Gauss_Smooth_ef2_SE = gfilt(three_sum_ef2_SE*1.0, sigma=15.0)
+
+    sliced_ef1_US[u] = Gauss_Smooth_ef1_US[len(temp_US_ef1):len(temp_US_ef1)*2]
+    sliced_ef2_US[u] = Gauss_Smooth_ef2_US[len(temp_US_ef2):len(temp_US_ef2)*2]
+    sliced_ef1_SE[u] = Gauss_Smooth_ef1_SE[len(temp_SE_ef1):len(temp_SE_ef1)*2]
+    sliced_ef2_SE[u] = Gauss_Smooth_ef2_SE[len(temp_SE_ef2):len(temp_SE_ef2)*2]
+
+
+for i in xrange(len(sliced_ef1_US)):   
+    
+    if i == 0:
+        
+        files_1 = sliced_ef1_US[i]
+        files_2 = sliced_ef2_US[i]
+        files_3 = sliced_ef1_SE[i]
+        files_4 = sliced_ef2_SE[i]
+    
+    if i == 1:
+    
+        files1 = np.dstack([files_1, sliced_ef1_US[i]])    
+        files2 = np.dstack([files_2, sliced_ef2_US[i]]) 
+        files3 = np.dstack([files_3, sliced_ef1_SE[i]]) 
+        files4 = np.dstack([files_4, sliced_ef2_SE[i]])
+        
+    if i > 1:
+        
+        files1 = np.dstack([files1, sliced_ef1_US[i][:365]])    
+        files2 = np.dstack([files2, sliced_ef2_US[i][:365]]) 
+        files3 = np.dstack([files3, sliced_ef1_SE[i][:365]]) 
+        files4 = np.dstack([files4, sliced_ef2_SE[i][:365]])        
+        
+'''  
