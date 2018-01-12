@@ -1130,7 +1130,7 @@ p3, = ax2.plot(range(0,total_days),HistoN_US2_cs,'k-',linewidth=2.0)
 
 ax2.set_ylabel('Tornado Reports (EF2+)', fontsize=10)
 
-ax2.set_yticks([0,25,50,75,100,125,150,175,200,225])
+ax2.set_yticks([0,35,70,105,140,175,210])
 #ax2.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008,0.009,0.010])
 plt.setp(ax2.get_yticklabels(), fontsize=10)
 #ax2.yaxis.set_major_formatter(ticker.FuncFormatter(myticks))
@@ -1155,7 +1155,7 @@ p3, = ax3.plot(range(0,total_days),HistoN_SE1_cs,'k-',linewidth=2.0)
 
 ax3.set_ylabel('Tornado Reports (EF1+)', fontsize=10)
 
-ax3.set_yticks([0,25,50,75,100,125,150,175,200])
+ax3.set_yticks([0,30,60,90,120,150,180])
 plt.setp(ax3.get_yticklabels(), fontsize=10)
 #ax3.yaxis.set_major_formatter(ticker.FuncFormatter(myticks))
 
@@ -1181,7 +1181,7 @@ p3, = ax4.plot(range(0,total_days),HistoN_SE2_cs,'k-',linewidth=2.0)
 ax4.set_ylabel('Tornado Reports (EF2+)', fontsize=10)
 #ax4.set_xlabel('Day of Year', fontsize=10)
 
-ax4.set_yticks([0,10,20,30,40,50,60,70,80])
+ax4.set_yticks([0,15,30,45,60,75,90])
 #ax4.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008,0.009])
 plt.setp(ax4.get_yticklabels(), fontsize=10)
 #ax4.yaxis.set_major_formatter(ticker.FuncFormatter(myticks))
@@ -1208,7 +1208,9 @@ p3, = ax5.plot(range(0,total_days),cumstp_neut2[:-1],'k-',linewidth=2.0)
 ax5.set_ylabel('Mean STP 3-Hours', fontsize=10)
 ax5.set_xlabel('Day of Year', fontsize=10)
 
-ax5.set_yticks([0,2500,5000,7500,10000,12500,15000,17500,20000,22500])
+#[0,35,70,105,140,175,210])
+
+ax5.set_yticks([0,3500,7000,10500,14000,17500,21000])
 #ax4.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008,0.009])
 plt.setp(ax5.get_yticklabels(), fontsize=10)
 #ax5.yaxis.set_major_formatter(ticker.FuncFormatter(myticks))
