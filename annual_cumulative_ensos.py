@@ -20,12 +20,16 @@ import numpy as np
 import mm_pkg as pk
 import matplotlib.pyplot as plt
 import datetime as dt
-#import xarray as xr
+import xarray as xr
 #import pandas as pd
 #from scipy.ndimage import gaussian_filter as gfilt
 import matplotlib.patches as mpatches
 import pickle
-#from itertools import product
+from itertools import product
+import shapefile
+from mpl_toolkits.basemap import Basemap
+from shapely.geometry import MultiPoint, Point, Polygon
+from matplotlib import ticker
 
 
 ###############################################################################
@@ -946,8 +950,120 @@ HistoA_SE2_75_cs = np.cumsum(HistoA_SE2_75)
 ###############################################################################
 
 
+data_neut = xr.open_dataset('/storage/timme1mj/maria_pysplit/stphrs_neutral', decode_cf=True)
+data_nino = xr.open_dataset('/storage/timme1mj/maria_pysplit/stphrs_nino', decode_cf=True)
+data_nina = xr.open_dataset('/storage/timme1mj/maria_pysplit/stphrs_nina', decode_cf=True)
 
+stpmask_neut = data_neut.grid.sum('dayofyear')
+stpmask_nino = data_nino.grid.sum('dayofyear')
+stpmask_nina = data_nina.grid.sum('dayofyear')
+
+data_neut = data_neut.grid
+data_nino = data_nino.grid
+data_nina = data_nina.grid
+
+
+latlon = xr.open_dataset('/storage/timme1mj/NARR/jclimate/latlon', decode_cf=False)
+
+llcrnrlon = -120
+llcrnrlat = 15
+urcrnrlon = -60
+urcrnrlat = 50
+
+m = Basemap(projection='lcc', lat_0 = 39, lon_0 = -96, lat_1 = 40,
+            llcrnrlon = llcrnrlon, llcrnrlat = llcrnrlat,
+            urcrnrlat = urcrnrlat, urcrnrlon = urcrnrlon,
+            resolution='l')
+
+x1, y1 = m(latlon.lons.values, latlon.lats.values)
+
+
+def get_us_border_polygon():
+
+    sf = shapefile.Reader("tl_2017_us_state")
+    shapes = sf.shapes()
+
+    fields = sf.fields
+    records = sf.records()
+    state_polygons = {}
     
+    for i, record in enumerate(records):
+        
+        state = record[5]
+        points = shapes[i].points
+        poly = Polygon(points)
+        state_polygons[state] = poly
+
+    return state_polygons
+
+state_polygons = get_us_border_polygon()   
+
+def in_us(lat, lon):
+    p = Point(lon, lat)
+    for state, poly in state_polygons.iteritems():
+        if poly.contains(p):
+            return state
+    return None
+
+
+
+for i, j in product(xrange(len(data_neut[0,:,0])),xrange(len(data_neut[0,0,:]))):
+    
+    y = y1[i,j]
+    x = x1[i,j]
+    
+    if not m.is_land(x,y):
+        
+        data_neut[:,i,j] = None
+        data_nino[:,i,j] = None
+        data_nina[:,i,j] = None
+        
+    xpt, ypt = m(x,y,inverse=True)
+    
+    if not in_us(ypt, xpt):
+
+        data_neut[:,i,j] = None
+        data_nino[:,i,j] = None
+        data_nina[:,i,j] = None
+        
+    if np.all(np.isfinite(data_neut[:,i,j])) and ypt > 50.0:
+        
+        data_neut[:,i,j] = None
+        
+    if np.all(np.isfinite(data_nino[:,i,j])) and ypt > 50.0:
+        
+        data_nino[:,i,j] = None
+        
+    if np.all(np.isfinite(data_nina[:,i,j])) and ypt > 50.0:
+        
+        data_nina[:,i,j] = None
+    
+    if stpmask_neut[i,j] <= 2.5:
+        
+        data_neut[:,i,j] = None        
+
+    if stpmask_nino[i,j] <= 2.5:
+        
+        data_nino[:,i,j] = None   
+        
+    if stpmask_nina[i,j] <= 2.5:
+        
+        data_nina[:,i,j] = None  
+
+
+np.count_nonzero(~np.isnan(data_neut[0,:,:]))
+
+data_neut2 = data_neut.sum(['x','y'], skipna=True)
+data_nino2 = data_nino.sum(['x','y'], skipna=True)
+data_nina2 = data_nina.sum(['x','y'], skipna=True)
+
+cumstp_neut = data_neut2.cumsum('dayofyear', skipna=True)
+cumstp_nino = data_nino2.cumsum('dayofyear', skipna=True)
+cumstp_nina = data_nina2.cumsum('dayofyear', skipna=True)
+
+cumstp_neut2 = np.divide(cumstp_neut,8)
+cumstp_nino2 = np.divide(cumstp_nino,8)
+cumstp_nina2 = np.divide(cumstp_nina,8)
 
 
 ###############################################################################
@@ -957,13 +1073,22 @@ HistoA_SE2_75_cs = np.cumsum(HistoA_SE2_75)
 ###############################################################################
 
 
-grey_patch = mpatches.Patch(color='grey', alpha=0.4, label='All')
+
+def myticks(x,pos):
+
+    if x == 0: return "$0$"
+
+    exponent = int(np.log10(x))
+    coeff = x/10**exponent
+
+    return r"${:2.0f} \times 10^{{ {:2d} }}$".format(coeff,exponent)
+
 
 
 fig = plt.figure(figsize=(8,12))
 
 
-ax1 = fig.add_axes([0.0, 0.75, 0.95, 0.225]) 
+ax1 = fig.add_axes([0.0, 0.8, 0.95, 0.175]) 
 
 p1, = ax1.plot(range(0,total_days),HistoEN_US1_cs,'r-',linewidth=2.0)
 p2, = ax1.plot(range(0,total_days),HistoLN_US1_cs,'b-',linewidth=2.0)
@@ -974,8 +1099,8 @@ p3, = ax1.plot(range(0,total_days),HistoN_US1_cs,'k-',linewidth=2.0)
 
 ax1.set_ylabel('Tornado Reports (EF1+)', fontsize=10)
 
-#ax1.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008])
-#plt.setp(ax1.get_yticklabels(), fontsize=10, rotation=35)
+ax1.set_yticks([0,100,200,300,400,500,600])
+plt.setp(ax1.get_yticklabels(), fontsize=10)
 #ax1.yaxis.set_major_formatter(ticker.FuncFormatter(myticks))
 
 ax1.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
@@ -994,7 +1119,7 @@ legend = plt.legend([p1,p2,p3],
 #plt.show()
 
 
-ax2 = fig.add_axes([0.0, 0.5, 0.95, 0.225]) 
+ax2 = fig.add_axes([0.0, 0.6, 0.95, 0.175]) 
 
 p1, = ax2.plot(range(0,total_days),HistoEN_US2_cs,'r-',linewidth=2.0)
 p2, = ax2.plot(range(0,total_days),HistoLN_US2_cs,'b-',linewidth=2.0)
@@ -1005,9 +1130,9 @@ p3, = ax2.plot(range(0,total_days),HistoN_US2_cs,'k-',linewidth=2.0)
 
 ax2.set_ylabel('Tornado Reports (EF2+)', fontsize=10)
 
-#ax2.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008])
+ax2.set_yticks([0,25,50,75,100,125,150,175,200,225])
 #ax2.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008,0.009,0.010])
-#plt.setp(ax2.get_yticklabels(), fontsize=10, rotation=35)
+plt.setp(ax2.get_yticklabels(), fontsize=10)
 #ax2.yaxis.set_major_formatter(ticker.FuncFormatter(myticks))
 
 ax2.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
@@ -1019,7 +1144,7 @@ ax2.grid(True, linestyle='--', alpha=0.5)
 
 
 
-ax3 = fig.add_axes([0.0, 0.25, 0.95, 0.225]) 
+ax3 = fig.add_axes([0.0, 0.4, 0.95, 0.175]) 
 
 p1, = ax3.plot(range(0,total_days),HistoEN_SE1_cs,'r-',linewidth=2.0)
 p2, = ax3.plot(range(0,total_days),HistoLN_SE1_cs,'b-',linewidth=2.0)
@@ -1030,8 +1155,8 @@ p3, = ax3.plot(range(0,total_days),HistoN_SE1_cs,'k-',linewidth=2.0)
 
 ax3.set_ylabel('Tornado Reports (EF1+)', fontsize=10)
 
-#ax3.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008])
-#plt.setp(ax3.get_yticklabels(), fontsize=10, rotation=35)
+ax3.set_yticks([0,25,50,75,100,125,150,175,200])
+plt.setp(ax3.get_yticklabels(), fontsize=10)
 #ax3.yaxis.set_major_formatter(ticker.FuncFormatter(myticks))
 
 ax3.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
@@ -1044,7 +1169,7 @@ ax3.grid(True, linestyle='--', alpha=0.5)
 
 
 
-ax4 = fig.add_axes([0.0, 0.0, 0.95, 0.225]) 
+ax4 = fig.add_axes([0.0, 0.2, 0.95, 0.175]) 
 
 p1, = ax4.plot(range(0,total_days),HistoEN_SE2_cs,'r-',linewidth=2.0)
 p2, = ax4.plot(range(0,total_days),HistoLN_SE2_cs,'b-',linewidth=2.0)
@@ -1054,21 +1179,47 @@ p3, = ax4.plot(range(0,total_days),HistoN_SE2_cs,'k-',linewidth=2.0)
 #p5 = ax4.fill_between(range(0,total_days),lo_thresh4,hi_thresh4,color='grey',linewidth=1.0,alpha=0.4)
 
 ax4.set_ylabel('Tornado Reports (EF2+)', fontsize=10)
-ax4.set_xlabel('Day of Year', fontsize=10)
+#ax4.set_xlabel('Day of Year', fontsize=10)
 
-#ax4.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008])
+ax4.set_yticks([0,10,20,30,40,50,60,70,80])
 #ax4.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008,0.009])
-#plt.setp(ax4.get_yticklabels(), fontsize=10, rotation=35)
+plt.setp(ax4.get_yticklabels(), fontsize=10)
 #ax4.yaxis.set_major_formatter(ticker.FuncFormatter(myticks))
 
-tick_locs = [1,50,100,150,200,250,300,350]
-tick_lbls = ['Jan 1','Feb 19','Apr 10','May 30','Jul 19','Sep 7','Oct 27','Dec 16']
-ax4.set_xticks(tick_locs) 
-ax4.set_xticklabels(tick_lbls)
+
+ax4.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
+
 ax4.set_title('d) Mean Cumulative Southeast EF2+ Tornado Reports')
 
 ax4.grid(True, linestyle='--', alpha=0.5)
 
+
+
+
+ax5 = fig.add_axes([0.0, 0.0, 0.95, 0.175]) 
+
+p1, = ax5.plot(range(0,total_days),cumstp_nino2[:-1],'r-',linewidth=2.0)
+p2, = ax5.plot(range(0,total_days),cumstp_nina2[:-1],'b-',linewidth=2.0)
+p3, = ax5.plot(range(0,total_days),cumstp_neut2[:-1],'k-',linewidth=2.0)    
+#p4, = ax4.plot(range(0,total_days),Gauss_SmoothAN4/np.sum(Gauss_SmoothAN4),'--',color='grey',linewidth=2.0)  
+
+#p5 = ax4.fill_between(range(0,total_days),lo_thresh4,hi_thresh4,color='grey',linewidth=1.0,alpha=0.4)
+
+ax5.set_ylabel('Mean STP 3-Hours', fontsize=10)
+ax5.set_xlabel('Day of Year', fontsize=10)
+
+ax5.set_yticks([0,2500,5000,7500,10000,12500,15000,17500,20000,22500])
+#ax4.set_yticks([0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008,0.009])
+plt.setp(ax5.get_yticklabels(), fontsize=10)
+#ax5.yaxis.set_major_formatter(ticker.FuncFormatter(myticks))
+
+tick_locs = [1,50,100,150,200,250,300,350]
+tick_lbls = ['Jan 1','Feb 19','Apr 10','May 30','Jul 19','Sep 7','Oct 27','Dec 16']
+ax5.set_xticks(tick_locs) 
+ax5.set_xticklabels(tick_lbls)
+ax5.set_title('e) Mean Cumulative STP 3-Hours')
+
+ax5.grid(True, linestyle='--', alpha=0.5)
 
 
 plt.savefig('wut_5.png', bbox_inches='tight', dpi=200)
