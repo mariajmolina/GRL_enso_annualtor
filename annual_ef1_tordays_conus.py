@@ -867,11 +867,11 @@ class MidpointNormalize(coloring.Normalize):
 ###############################################################################
 
 
-#fig = plt.figure(figsize=(12,16))
-fig = plt.figure(figsize=(24,32))
+fig = plt.figure(figsize=(12,16))
+#fig = plt.figure(figsize=(24,32))
 
 #ax1 = fig.add_axes([0.0, 0.75, 0.32, 0.21]) 
-ax1 = fig.add_axes([0.0, 0.75, 0.34, 0.2325]) 
+ax1 = fig.add_axes([0.0, 0.75, 0.295, 0.225]) 
 
 
 #ax1 = fig.add_axes([0.0, 0.0, 1, 1]) 
@@ -879,18 +879,20 @@ ax1 = fig.add_axes([0.0, 0.75, 0.34, 0.2325])
 t1 = ax1.barh(onis1, p1, height=1.0, align='center', color=cmap(norm(c_map1)), edgecolor='dimgrey', alpha=1, zorder=2)
 t_1, = ax1.plot([np.nanmean(p1),np.nanmean(p1)],[0,63], linewidth=2.5, linestyle='--', color='k', alpha=0.5)
 
-ticks1 = np.arange(0,4.0,0.5)
+ticks1 = np.arange(0,4,0.5)
 ax1.set_xticks(ticks1)
 plt.setp(ax1.get_xticklabels(), fontsize=9, alpha=0)
 
-ax1.set_yticks(onis1)
-ax1.set_yticklabels(label1, fontsize=9, rotation=0)
+ax1.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
 
-plt.title('a) Dec (E)F1+ CONUS Tornado Days and NDJ ONI',fontsize=18)
+ax1.set_yticks(onis1[::3])
+ax1.set_yticklabels(label1[::3], fontsize=9, rotation=0)
+
+ax1.set_title('a) Dec Tornado Days; NDJ ONI',fontsize=16)
 ax1.set_ylabel('Years Ranked by ONI',fontsize=16)
 
 for i, txt in enumerate(xlabels1):
-    plt.annotate(txt, (p1[i], onis1[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
+    plt.annotate(txt, (p1[i], onis1[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
 
 #plt.show()
 
@@ -900,22 +902,24 @@ for i, txt in enumerate(xlabels1):
 
 
 #ax2 = fig.add_axes([0.37, 0.75, 0.32, 0.21])
-ax2 = fig.add_axes([0.37, 0.75, 0.34, 0.2325])
+ax2 = fig.add_axes([0.34, 0.75, 0.295, 0.225])
 
 t2 = ax2.barh(onis2, p2, height=1.0, align='center', color=cmap(norm(c_map2)), edgecolor='dimgrey', alpha=1, zorder=2)
 t_2, = ax2.plot([np.nanmean(p2),np.nanmean(p2)],[0,63], linewidth=2.5, linestyle='--', color='k', alpha=0.5)
 
-ticks1 = np.arange(0,4.0,0.5)
+ticks1 = np.arange(0,4,0.5)
 ax2.set_xticks(ticks1)
 plt.setp(ax2.get_xticklabels(), fontsize=9, alpha=0)
 
-ax2.set_yticks(onis2)
-ax2.set_yticklabels(label2, fontsize=10, rotation=0)
+ax2.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
 
-plt.title('b) Jan (E)F1+ CONUS Tornado Days and DJF ONI',fontsize=18)
+ax2.set_yticks(onis2[::3])
+ax2.set_yticklabels(label2[::3], fontsize=10, rotation=0)
+
+ax2.set_title('b) Jan Tornado Days; DJF ONI',fontsize=16)
 
 for i, txt in enumerate(xlabels2):
-    plt.annotate(txt, (p2[i], onis2[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
+    plt.annotate(txt, (p2[i], onis2[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
 
 
 ###############################################################################
@@ -924,22 +928,24 @@ for i, txt in enumerate(xlabels2):
 
 
 #ax3 = fig.add_axes([0.74, 0.75, 0.32, 0.21])
-ax3 = fig.add_axes([0.74, 0.75, 0.34, 0.2325])
+ax3 = fig.add_axes([0.68, 0.75, 0.295, 0.225])
 
 t3 = ax3.barh(onis3, p3, height=1.0, align='center', color=cmap(norm(c_map3)), edgecolor='dimgrey', alpha=1, zorder=2)
 t_3, = ax3.plot([np.nanmean(p3),np.nanmean(p3)],[0,63], linewidth=2.5, linestyle='--', color='k', alpha=0.5)
 
-ticks1 = np.arange(0,4.0,0.5)
+ticks1 = np.arange(0,4,0.5)
 ax3.set_xticks(ticks1)
 plt.setp(ax3.get_xticklabels(), fontsize=9, alpha=0)
 
-ax3.set_yticks(onis3)
-ax3.set_yticklabels(label3, fontsize=10, rotation=0)
+ax3.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
 
-plt.title('c) Feb (E)F1+ CONUS Tornado Days and JFM ONI',fontsize=18)
+ax3.set_yticks(onis3[::3])
+ax3.set_yticklabels(label3[::3], fontsize=10, rotation=0)
+
+ax3.set_title('c) Feb Tornado Days; JFM ONI',fontsize=16)
 
 for i, txt in enumerate(xlabels3):
-    plt.annotate(txt, (p3[i], onis3[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
+    plt.annotate(txt, (p3[i], onis3[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
 
 
 ###############################################################################
@@ -948,23 +954,25 @@ for i, txt in enumerate(xlabels3):
 
 
 #ax4 = fig.add_axes([0.0, 0.5, 0.32, 0.21])
-ax4 = fig.add_axes([0.0, 0.505, 0.34, 0.2325])
+ax4 = fig.add_axes([0.0, 0.505, 0.295, 0.225])
 
 t4 = ax4.barh(onis4, p4, height=1.0, align='center', color=cmap(norm(c_map4)), edgecolor='dimgrey', alpha=1, zorder=2)
 t_4, = ax4.plot([np.nanmean(p4),np.nanmean(p4)],[0,63], linewidth=2.5, linestyle='--', color='k', alpha=0.5)
 
-ticks1 = np.arange(0,4.0,0.5)
+ticks1 = np.arange(0,4,0.5)
 ax4.set_xticks(ticks1)
 plt.setp(ax4.get_xticklabels(), fontsize=9, alpha=0)
 
-ax4.set_yticks(onis4)
-ax4.set_yticklabels(label4, fontsize=10, rotation=0)
+ax4.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
 
-plt.title('d) Mar (E)F1+ CONUS Tornado Days and FMA ONI',fontsize=18)
+ax4.set_yticks(onis4[::3])
+ax4.set_yticklabels(label4[::3], fontsize=10, rotation=0)
+
+ax4.set_title('d) Mar Tornado Days; FMA ONI',fontsize=16)
 ax4.set_ylabel('Years Ranked by ONI',fontsize=16)
 
 for i, txt in enumerate(xlabels4):
-    plt.annotate(txt, (p4[i], onis4[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
+    plt.annotate(txt, (p4[i], onis4[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
 
 
 ###############################################################################
@@ -973,22 +981,24 @@ for i, txt in enumerate(xlabels4):
 
 
 #ax5 = fig.add_axes([0.37, 0.5, 0.32, 0.21])
-ax5 = fig.add_axes([0.37, 0.505, 0.34, 0.2325])
+ax5 = fig.add_axes([0.34, 0.505, 0.295, 0.225])
 
 t5 = ax5.barh(onis5, p5, height=1.0, align='center', color=cmap(norm(c_map5)), edgecolor='dimgrey', alpha=1, zorder=2)
 t_5, = ax5.plot([np.nanmean(p5),np.nanmean(p5)],[0,63], linewidth=2.5, linestyle='--', color='k', alpha=0.5)
 
-ticks1 = np.arange(0,4.0,0.5)
+ticks1 = np.arange(0,4,0.5)
 ax5.set_xticks(ticks1)
 plt.setp(ax5.get_xticklabels(), fontsize=9, alpha=0)
 
-ax5.set_yticks(onis5)
-ax5.set_yticklabels(label5, fontsize=10, rotation=0)
+ax5.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
 
-plt.title('e) Apr (E)F1+ CONUS Tornado Days and MAM ONI',fontsize=18)
+ax5.set_yticks(onis5[::3])
+ax5.set_yticklabels(label5[::3], fontsize=10, rotation=0)
+
+ax5.set_title('e) Apr Tornado Days; MAM ONI',fontsize=16)
 
 for i, txt in enumerate(xlabels5):
-    plt.annotate(txt, (p5[i], onis5[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
+    plt.annotate(txt, (p5[i], onis5[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
 
 
 ###############################################################################
@@ -997,22 +1007,24 @@ for i, txt in enumerate(xlabels5):
 
 
 #ax6 = fig.add_axes([0.74, 0.5, 0.32, 0.21])
-ax6 = fig.add_axes([0.74, 0.505, 0.34, 0.2325])
+ax6 = fig.add_axes([0.68, 0.505, 0.295, 0.225])
 
 t6 = ax6.barh(onis6, p6, height=1.0, align='center', color=cmap(norm(c_map6)), edgecolor='dimgrey', alpha=1, zorder=2)
 t_6, = ax6.plot([np.nanmean(p6),np.nanmean(p6)],[0,63], linewidth=2.5, linestyle='--', color='k', alpha=0.5)
 
-ticks1 = np.arange(0,4.0,0.5)
+ticks1 = np.arange(0,4,0.5)
 ax6.set_xticks(ticks1)
 plt.setp(ax6.get_xticklabels(), fontsize=9, alpha=0)
 
-ax6.set_yticks(onis6)
-ax6.set_yticklabels(label6, fontsize=10, rotation=0)
+ax6.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
 
-plt.title('f) May (E)F1+ CONUS Tornado Days and AMJ ONI',fontsize=18)
+ax6.set_yticks(onis6[::3])
+ax6.set_yticklabels(label6[::3], fontsize=10, rotation=0)
+
+ax6.set_title('f) May Tornado Days; AMJ ONI',fontsize=16)
 
 for i, txt in enumerate(xlabels6):
-    plt.annotate(txt, (p6[i], onis6[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
+    plt.annotate(txt, (p6[i], onis6[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
 
 
 ###############################################################################
@@ -1021,23 +1033,25 @@ for i, txt in enumerate(xlabels6):
 
 
 #ax7 = fig.add_axes([0.0, 0.25, 0.32, 0.21])
-ax7 = fig.add_axes([0.0, 0.26, 0.34, 0.2325])
+ax7 = fig.add_axes([0.0, 0.26, 0.295, 0.225])
 
 t7 = ax7.barh(onis7, p7, height=1.0, align='center', color=cmap(norm(c_map7)), edgecolor='dimgrey', alpha=1, zorder=2)
 t_7, = ax7.plot([np.nanmean(p7),np.nanmean(p7)],[0,63], linewidth=2.5, linestyle='--', color='k', alpha=0.5)
 
-ticks1 = np.arange(0,4.0,0.5)
+ticks1 = np.arange(0,4,0.5)
 ax7.set_xticks(ticks1)
 plt.setp(ax7.get_xticklabels(), fontsize=9, alpha=0)
 
-ax7.set_yticks(onis7)
-ax7.set_yticklabels(label7, fontsize=10, rotation=0)
+ax7.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
 
-plt.title('g) Jun (E)F1+ CONUS Tornado Days and MJJ ONI',fontsize=18)
+ax7.set_yticks(onis7[::3])
+ax7.set_yticklabels(label7[::3], fontsize=10, rotation=0)
+
+ax7.set_title('g) Jun Tornado Days; MJJ ONI',fontsize=16)
 ax7.set_ylabel('Years Ranked by ONI',fontsize=16)
 
 for i, txt in enumerate(xlabels7):
-    plt.annotate(txt, (p7[i], onis7[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
+    plt.annotate(txt, (p7[i], onis7[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
 
 
 ###############################################################################
@@ -1046,22 +1060,24 @@ for i, txt in enumerate(xlabels7):
 
 
 #ax8 = fig.add_axes([0.37, 0.25, 0.32, 0.21])
-ax8 = fig.add_axes([0.37, 0.26, 0.34, 0.2325])
+ax8 = fig.add_axes([0.34, 0.26, 0.295, 0.225])
 
 t8 = ax8.barh(onis8, p8, height=1.0, align='center', color=cmap(norm(c_map8)), edgecolor='dimgrey', alpha=1, zorder=2)
 t_8, = ax8.plot([np.nanmean(p8),np.nanmean(p8)],[0,63], linewidth=2.5, linestyle='--', color='k', alpha=0.5)
 
-ticks1 = np.arange(0,4.0,0.5)
+ticks1 = np.arange(0,4,0.5)
 ax8.set_xticks(ticks1)
 plt.setp(ax8.get_xticklabels(), fontsize=9, alpha=0)
 
-ax8.set_yticks(onis8)
-ax8.set_yticklabels(label8, fontsize=10, rotation=0)
+ax8.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
 
-plt.title('h) Jul (E)F1+ CONUS Tornado Days and JJA ONI',fontsize=18)
+ax8.set_yticks(onis8[::3])
+ax8.set_yticklabels(label8[::3], fontsize=10, rotation=0)
+
+ax8.set_title('h) Jul Tornado Days; JJA ONI',fontsize=16)
 
 for i, txt in enumerate(xlabels8):
-    plt.annotate(txt, (p8[i], onis8[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
+    plt.annotate(txt, (p8[i], onis8[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
 
 
 ###############################################################################
@@ -1070,22 +1086,24 @@ for i, txt in enumerate(xlabels8):
 
 
 #ax9 = fig.add_axes([0.74, 0.25, 0.32, 0.21])
-ax9 = fig.add_axes([0.74, 0.26, 0.34, 0.2325])
+ax9 = fig.add_axes([0.68, 0.26, 0.295, 0.225])
 
 t9 = ax9.barh(onis9, p9, height=1.0, align='center', color=cmap(norm(c_map9)), edgecolor='dimgrey', alpha=1, zorder=2)
 t_9, = ax9.plot([np.nanmean(p9),np.nanmean(p9)],[0,63], linewidth=2.5, linestyle='--', color='k', alpha=0.5)
 
-ticks1 = np.arange(0,4.0,0.5)
+ticks1 = np.arange(0,4,0.5)
 ax9.set_xticks(ticks1)
 plt.setp(ax9.get_xticklabels(), fontsize=9, alpha=0)
 
-ax9.set_yticks(onis9)
-ax9.set_yticklabels(label9, fontsize=10, rotation=0)
+ax9.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
 
-plt.title('i) Aug (E)F1+ CONUS Tornado Days and JAS ONI',fontsize=18)
+ax9.set_yticks(onis9[::3])
+ax9.set_yticklabels(label9[::3], fontsize=10, rotation=0)
+
+ax9.set_title('i) Aug Tornado Days; JAS ONI',fontsize=16)
    
 for i, txt in enumerate(xlabels9):
-    plt.annotate(txt, (p9[i], onis9[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
+    plt.annotate(txt, (p9[i], onis9[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
     
 
 ###############################################################################
@@ -1094,26 +1112,30 @@ for i, txt in enumerate(xlabels9):
     
 
 #ax10 = fig.add_axes([0.0, 0.0, 0.32, 0.21])
-ax10 = fig.add_axes([0.0, 0.015, 0.34, 0.2325])
+ax10 = fig.add_axes([0.0, 0.015, 0.295, 0.225])
 
 t10 = ax10.barh(onis10, p10, height=1.0, align='center', color=cmap(norm(c_map10)), edgecolor='dimgrey', alpha=1, zorder=2)
 t_10, = ax10.plot([np.nanmean(p10),np.nanmean(p10)],[0,63], linewidth=2.5, linestyle='--', color='k', alpha=0.5)
 
-ticks1 = np.arange(0,4.0,0.5)
+ticks1 = np.arange(0,4,0.5)
 ax10.set_xticks(ticks1)
-ticks_cb = ['0','50%','100%','150%','200%','250%','300%','350%']
+ticks_cb = ['0','100%','200%','300%']
 ax10.set_xticklabels(ticks_cb, fontsize=12)
 #plt.setp(ax10.get_xticklabels(), fontsize=10)
 
-ax10.set_yticks(onis10)
-ax10.set_yticklabels(label10, fontsize=10, rotation=0)
+ax10.set_xticks(ax10.get_xticks()[::2])
 
-plt.title('j) Sep (E)F1+ CONUS Tornado Days and ASO ONI',fontsize=18)
+#ax10.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
+
+ax10.set_yticks(onis10[::3])
+ax10.set_yticklabels(label10[::3], fontsize=10, rotation=0)
+
+ax10.set_title('j) Sep Tornado Days; ASO ONI',fontsize=16)
 ax10.set_ylabel('Years Ranked by ONI',fontsize=16)
-ax10.set_xlabel('% Climatological Frequency',fontsize=16)
+ax10.set_xlabel('% EF1+ Climatological Frequency',fontsize=16)
 
 for i, txt in enumerate(xlabels10):
-    plt.annotate(txt, (p10[i], onis10[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
+    plt.annotate(txt, (p10[i], onis10[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
 
 
 ###############################################################################
@@ -1122,37 +1144,40 @@ for i, txt in enumerate(xlabels10):
     
 
 #ax11 = fig.add_axes([0.37, 0.0, 0.32, 0.21])
-ax11 = fig.add_axes([0.37, 0.015, 0.34, 0.2325])
+ax11 = fig.add_axes([0.34, 0.015, 0.295, 0.225])
 
 t11 = ax11.barh(onis11, p11, height=1.0, align='center', color=cmap(norm(c_map11)), edgecolor='dimgrey', alpha=1, zorder=2)
 t_11, = ax11.plot([np.nanmean(p11),np.nanmean(p11)],[0,63], linewidth=2.5, linestyle='--', color='k', alpha=0.5)
 
-ticks1 = np.arange(0,4.0,0.5)
+ticks1 = np.arange(0,4,0.5)
 ax11.set_xticks(ticks1)
 plt.setp(ax11.get_xticklabels(), fontsize=9, alpha=0)
 
-ax11.set_yticks(onis11)
-ax11.set_yticklabels(label11, fontsize=10, rotation=0)
+ax11.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
 
-plt.title('k) Oct (E)F1+ CONUS Tornado Days and SON ONI',fontsize=18)
+ax11.set_yticks(onis11[::3])
+ax11.set_yticklabels(label11[::3], fontsize=10, rotation=0)
+
+ax11.set_title('k) Oct Tornado Days; SON ONI',fontsize=16)
 #ax11.set_ylabel('Years Ranked by ONI',fontsize=14)
 #ax11.set_xlabel('Number of Tornadoes',fontsize=14)
 
 for i, txt in enumerate(xlabels11):
-    plt.annotate(txt, (p11[i], onis11[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
+    plt.annotate(txt, (p11[i], onis11[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
 
 
 
-cbar_ax = fig.add_axes([0.37, 0.005, 0.34, 0.007])
+cbar_ax = fig.add_axes([0.34, 0.005, 0.295, 0.008])
 
 
-bounds = [-2.5,-2.0,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,2.0,2.5]
+bounds = [-2.5,-1.5,-0.5,0.5,1.5,2.5]
 normed = mpl.colors.Normalize(vmin=-2.5, vmax=2.5)
 
 cbar = mpl.colorbar.ColorbarBase(cbar_ax, cmap=cmap,
                                 norm=normed,
                                 ticks=bounds,
                                 orientation='horizontal')
+
 
 
 
@@ -1166,26 +1191,32 @@ cbar.ax.tick_params(labelsize=12)
 
 
 #ax12 = fig.add_axes([0.74, 0.0, 0.32, 0.21])
-ax12 = fig.add_axes([0.74, 0.015, 0.34, 0.2325])
+ax12 = fig.add_axes([0.68, 0.015, 0.295, 0.225])
 
 t12 = ax12.barh(onis12, p12, height=1.0, align='center', color=cmap(norm(c_map12)), edgecolor='dimgrey', alpha=1, zorder=2)
 t_12, = ax12.plot([np.nanmean(p12),np.nanmean(p12)],[0,63], linewidth=2.5, linestyle='--', color='k', alpha=0.5)
 
-ticks1 = np.arange(0,4.0,0.5)
+ticks1 = np.arange(0,4,0.5)
 ax12.set_xticks(ticks1)
-ticks_cb = ['0','50%','100%','150%','200%','250%','300%','350%']
+ticks_cb = ['0','100%','200%','300%']
 ax12.set_xticklabels(ticks_cb, fontsize=12)
 #plt.setp(ax12.get_xticklabels(), fontsize=10)
 
-ax12.set_yticks(onis12)
-ax12.set_yticklabels(label12, fontsize=10, rotation=0)
+ax12.set_xticks(ax12.get_xticks()[::2])
 
-plt.title('l) Nov (E)F1+ CONUS Tornado Days and OND ONI',fontsize=18)
+#ax12.tick_params(axis='x', which='both', bottom='off', top='off', labelbottom='off')
+
+ax12.set_yticks(onis12[::3])
+ax12.set_yticklabels(label12[::3], fontsize=10, rotation=0)
+
+#ax12.set_yticks(ax12.get_yticks()[::2])
+
+ax12.set_title('l) Nov Tornado Days; OND ONI',fontsize=16)
 #ax12.set_ylabel('Years Ranked by ONI',fontsize=14)
-ax12.set_xlabel('% Climatological Frequency',fontsize=16)
+ax12.set_xlabel('% EF1+ Climatological Frequency',fontsize=16)
 
 for i, txt in enumerate(xlabels12):
-    plt.annotate(txt, (p12[i], onis12[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=10, zorder=2)
+    plt.annotate(txt, (p12[i], onis12[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
 
 
 ###############################################################################
