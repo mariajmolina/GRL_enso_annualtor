@@ -31,9 +31,8 @@ for _ in xrange(10000):
     neut_stack[_,:,:] = neut_stack_temp[0,:,:]
     
     
-with open('neut_stp_stack', 'wb') as output:
-    pickle.dump(neut_stack, output, pickle.HIGHEST_PROTOCOL)       
-    
+np.save('neut_stp_stack', neut_stack)
+
 
 ###############################################################################
 ###############################################################################
@@ -54,8 +53,7 @@ for _ in xrange(10000):
     nina_stack[_,:,:] = nina_stack_temp[0,:,:] 
 
 
-with open('nina_stp_stack', 'wb') as output:
-    pickle.dump(nina_stack, output, pickle.HIGHEST_PROTOCOL)
+np.save('nina_stp_stack', nina_stack)
     
 
 ###############################################################################
@@ -78,11 +76,11 @@ for _ in xrange(10000):
     nino_stack[_,:,:] = nino_stack_temp[0,:,:]
     
     
-with open('nino_stp_stack', 'wb') as output:
-    pickle.dump(nino_stack, output, pickle.HIGHEST_PROTOCOL)
+np.save('nino_stp_stack', nino_stack)
     
-    
+
 ###############################################################################
 ###############################################################################
 ###############################################################################
+
 
