@@ -24,7 +24,7 @@ import matplotlib.pyplot as plt
 from scipy.ndimage import gaussian_filter as gfilt
 from mpl_toolkits.basemap import Basemap
 from itertools import product
-import pickle
+#import pickle
 
 
 ###############################################################################
@@ -349,57 +349,56 @@ g_nino = g_mask2.data - g_mask3.data
 g_nina = g_mask4.data - g_mask3.data
 
 
-neut_concata_upper = np.nanpercentile(neut_diff_concata,97.5,axis=0)
-neut_concata_lower = np.nanpercentile(neut_diff_concata,2.5,axis=0)
-neut_concato_upper = np.nanpercentile(neut_diff_concato,97.5,axis=0)
-neut_concato_lower = np.nanpercentile(neut_diff_concato,2.5,axis=0)
-nina_concat_a_upper = np.nanpercentile(nina_diff_concat_a,97.5,axis=0)
-nina_concat_a_lower = np.nanpercentile(nina_diff_concat_a,2.5,axis=0)
-nino_concatao_upper = np.nanpercentile(nino_diff_concatao,97.5,axis=0)
-nino_concatao_lower = np.nanpercentile(nino_diff_concatao,2.5,axis=0)
+###############################################################################
+###############################################################################
+###############################################################################
 
 
-
-g_mask = np.ma.masked_invalid(neut_concata_upper)
-mask_help = np.sum(np.vstack([np.array_split(sum_group_neut,[31,213])[0].values, np.array_split(sum_group_neut,[31,213])[2].values]), axis=0)
-g_mask1 = np.ma.masked_array(g_mask, mask_help==0)
-
-g_mask = np.ma.masked_invalid(neut_concata_lower)
-mask_help = np.sum(np.vstack([np.array_split(sum_group_neut,[31,213])[0].values, np.array_split(sum_group_neut,[31,213])[2].values]), axis=0)
-g_mask2 = np.ma.masked_array(g_mask, mask_help==0)
-
-g_mask = np.ma.masked_invalid(neut_concato_upper)
-mask_help = np.sum(np.vstack([np.array_split(sum_group_neut,[31,213])[0].values, np.array_split(sum_group_neut,[31,213])[2].values]), axis=0)
-g_mask3 = np.ma.masked_array(g_mask, mask_help==0)
-
-g_mask = np.ma.masked_invalid(neut_concato_lower)
-mask_help = np.sum(np.vstack([np.array_split(sum_group_neut,[31,213])[0].values, np.array_split(sum_group_neut,[31,213])[2].values]), axis=0)
-g_mask4 = np.ma.masked_array(g_mask, mask_help==0)
-
-g_mask = np.ma.masked_invalid(nina_concat_a_upper)
-mask_help = np.sum(np.vstack([np.array_split(sum_group_nina,[31,213])[0].values, np.array_split(sum_group_nina,[31,213])[2].values]), axis=0)
-g_mask5 = np.ma.masked_array(g_mask, mask_help==0)
-
-g_mask = np.ma.masked_invalid(nina_concat_a_lower)
-mask_help = np.sum(np.vstack([np.array_split(sum_group_nina,[31,213])[0].values, np.array_split(sum_group_nina,[31,213])[2].values]), axis=0)
-g_mask6 = np.ma.masked_array(g_mask, mask_help==0)
-
-g_mask = np.ma.masked_invalid(nino_concatao_upper)
-mask_help = np.sum(np.vstack([np.array_split(sum_group_nino,[31,213])[0].values, np.array_split(sum_group_nino,[31,213])[2].values]), axis=0)
-g_mask7 = np.ma.masked_array(g_mask, mask_help==0)
-
-g_mask = np.ma.masked_invalid(nino_concatao_lower)
-mask_help = np.sum(np.vstack([np.array_split(sum_group_nino,[31,213])[0].values, np.array_split(sum_group_nino,[31,213])[2].values]), axis=0)
-g_mask8 = np.ma.masked_array(g_mask, mask_help==0)
+neut_concat = np.zeros([10000, 51, 66])
+nina_concat = np.zeros([10000, 51, 66])
+nino_concat = np.zeros([10000, 51, 66])
 
 
+for _ in xrange(10000):
 
-g_upper_nina = g_mask5.data - g_mask1.data
-g_lower_nina = g_mask6.data - g_mask2.data
 
-g_upper_nino = g_mask7.data - g_mask3.data
-g_lower_nino = g_mask8.data - g_mask4.data
+    neut_file = np.load('/storage/timme1mj/maria_pysplit/torobs_sig/sliced_neut_'+str(_)+'.npy')
+    nina_file = np.load('/storage/timme1mj/maria_pysplit/torobs_sig/sliced_nina_'+str(_)+'.npy')
+    nino_file = np.load('/storage/timme1mj/maria_pysplit/torobs_sig/sliced_nino_'+str(_)+'.npy')
+    
+    neut_file = np.vstack([neut_file[-152:,:,:],neut_file[:31,:,:]])
+    nina_file = np.vstack([nina_file[-152:,:,:],nina_file[:31,:,:]])
+    nino_file = np.vstack([nino_file[-152:,:,:],nino_file[:31,:,:]])
 
+    neut_concat[_,:,:] = np.ndarray.argmax(neut_file, axis=0)
+    nina_concat[_,:,:] = np.ndarray.argmax(nina_file, axis=0)
+    nino_concat[_,:,:] = np.ndarray.argmax(nino_file, axis=0)
+   
+    print _
+
+
+for i in xrange(10000):
+    
+    neut_concat[i,:,:] = gfilt(neut_concat[i,:,:]*1.0, sigma=1.5)
+    nina_concat[i,:,:] = gfilt(nina_concat[i,:,:]*1.0, sigma=1.5)
+    nino_concat[i,:,:] = gfilt(nino_concat[i,:,:]*1.0, sigma=1.5)
+    
+    print str(i)+' completed...'
+
+
+###############################################################################
+###############################################################################
+###############################################################################
+
+
+nina_diff = nina_concat - neut_concat
+nino_diff = nino_concat - neut_concat
+
+
+nina_upper = np.nanpercentile(nina_diff,97.5,axis=0)
+nina_lower = np.nanpercentile(nina_diff,2.5,axis=0)
+nino_upper = np.nanpercentile(nino_diff,97.5,axis=0)
+nino_lower = np.nanpercentile(nino_diff,2.5,axis=0)
 
 
 nina_sign = np.zeros(g_nino.shape)
@@ -410,21 +409,21 @@ for i, j in product(xrange(len(g_nino[:,0])),xrange(len(g_nino[0,:]))):
     
     if np.isfinite(g_nino[i,j]):
         
-        if g_nino[i,j] >= g_upper_nino[i,j]:
+        if g_nino[i,j] >= nino_upper[i,j]:
             
             nino_sign[i,j] = 1
             
-        if g_nino[i,j] <= g_lower_nino[i,j]:
+        if g_nino[i,j] <= nino_lower[i,j]:
 
             nino_sign[i,j] = 1
 
     if np.isfinite(g_nina[i,j]):
         
-        if g_nina[i,j] >= g_upper_nina[i,j]:
+        if g_nina[i,j] >= nina_upper[i,j]:
             
             nina_sign[i,j] = 1
             
-        if g_nina[i,j] <= g_lower_nina[i,j]:
+        if g_nina[i,j] <= nina_lower[i,j]:
 
             nina_sign[i,j] = 1
 
@@ -552,7 +551,7 @@ g_mask = np.ma.masked_invalid(nino_sign)
 mask_help = np.sum(np.vstack([np.array_split(sum_group_nino,[31,213])[0].values, np.array_split(sum_group_nino,[31,213])[2].values]), axis=0)
 g_mask2 = np.ma.masked_array(g_mask, mask_help<=0.6)
 
-ax4.scatter(scat_lons, scat_lats, g_mask2, color='k')
+ax4.scatter(scat_lons, scat_lats, g_mask2*8, facecolors='w', edgecolors='k', zorder=10)
 
 m.drawcoastlines()
 m.drawstates()
@@ -590,7 +589,7 @@ g_mask = np.ma.masked_invalid(nina_sign)
 mask_help = np.sum(np.vstack([np.array_split(sum_group_nina,[31,213])[0].values, np.array_split(sum_group_nina,[31,213])[2].values]), axis=0)
 g_mask2 = np.ma.masked_array(g_mask, mask_help<=0.6)
 
-ax6.scatter(scat_lons, scat_lats, g_mask2, color='k')
+ax6.scatter(scat_lons, scat_lats, g_mask2*8, facecolors='w', edgecolors='k', zorder=10)
 
 m.drawcoastlines()
 m.drawstates()
@@ -620,13 +619,11 @@ plt.savefig('wut_3.png', bbox_inches='tight', dpi=200)
 ###############################################################################
 ###############################################################################
 ###############################################################################
-
-
 ###############################################################################
 ###############################################################################
 ###############################################################################
 
-
+'''
 fig = plt.figure(figsize=(9.25,12))
 
 x1, y1 = latlon.lons.values, latlon.lats.values
@@ -756,7 +753,7 @@ plt.savefig('wut_3s.png', bbox_inches='tight', dpi=200)
 
 plt.show()
 
-
+'''
 
 ###############################################################################
 ###############################################################################
