@@ -758,10 +758,10 @@ ax1.set_yticklabels(label1[::3], fontsize=9, rotation=0)
 
 ax1.set_title('a) Dec Tornadoes; NDJ ONI',fontsize=16)
 ax1.set_ylabel('Years Ranked by ONI',fontsize=16)
-
+'''
 for i, txt in enumerate(xlabels1):
     plt.annotate(txt, (p1[i], onis1[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
-
+'''
 #plt.show()
 
 ###############################################################################
@@ -785,10 +785,10 @@ ax2.set_yticks(onis2[::3])
 ax2.set_yticklabels(label2[::3], fontsize=10, rotation=0)
 
 ax2.set_title('b) Jan Tornadoes; DJF ONI',fontsize=16)
-
+'''
 for i, txt in enumerate(xlabels2):
     plt.annotate(txt, (p2[i], onis2[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
-
+'''
 
 ###############################################################################
 ###############################################################################
@@ -811,10 +811,10 @@ ax3.set_yticks(onis3[::3])
 ax3.set_yticklabels(label3[::3], fontsize=10, rotation=0)
 
 ax3.set_title('c) Feb Tornadoes; JFM ONI',fontsize=16)
-
+'''
 for i, txt in enumerate(xlabels3):
     plt.annotate(txt, (p3[i], onis3[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
-
+'''
 
 ###############################################################################
 ###############################################################################
@@ -838,10 +838,10 @@ ax4.set_yticklabels(label4[::3], fontsize=10, rotation=0)
 
 ax4.set_title('d) Mar Tornadoes; FMA ONI',fontsize=16)
 ax4.set_ylabel('Years Ranked by ONI',fontsize=16)
-
+'''
 for i, txt in enumerate(xlabels4):
     plt.annotate(txt, (p4[i], onis4[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
-
+'''
 
 ###############################################################################
 ###############################################################################
@@ -864,10 +864,10 @@ ax5.set_yticks(onis5[::3])
 ax5.set_yticklabels(label5[::3], fontsize=10, rotation=0)
 
 ax5.set_title('e) Apr Tornadoes; MAM ONI',fontsize=16)
-
+'''
 for i, txt in enumerate(xlabels5):
     plt.annotate(txt, (p5[i], onis5[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
-
+'''
 
 ###############################################################################
 ###############################################################################
@@ -890,10 +890,10 @@ ax6.set_yticks(onis6[::3])
 ax6.set_yticklabels(label6[::3], fontsize=10, rotation=0)
 
 ax6.set_title('f) May Tornadoes; AMJ ONI',fontsize=16)
-
+'''
 for i, txt in enumerate(xlabels6):
     plt.annotate(txt, (p6[i], onis6[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
-
+'''
 
 ###############################################################################
 ###############################################################################
@@ -917,10 +917,10 @@ ax7.set_yticklabels(label7[::3], fontsize=10, rotation=0)
 
 ax7.set_title('g) Jun Tornadoes; MJJ ONI',fontsize=16)
 ax7.set_ylabel('Years Ranked by ONI',fontsize=16)
-
+'''
 for i, txt in enumerate(xlabels7):
     plt.annotate(txt, (p7[i], onis7[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
-
+'''
 
 ###############################################################################
 ###############################################################################
@@ -943,10 +943,10 @@ ax8.set_yticks(onis8[::3])
 ax8.set_yticklabels(label8[::3], fontsize=10, rotation=0)
 
 ax8.set_title('h) Jul Tornadoes; JJA ONI',fontsize=16)
-
+'''
 for i, txt in enumerate(xlabels8):
     plt.annotate(txt, (p8[i], onis8[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
-
+'''
 
 ###############################################################################
 ###############################################################################
@@ -969,10 +969,10 @@ ax9.set_yticks(onis9[::3])
 ax9.set_yticklabels(label9[::3], fontsize=10, rotation=0)
 
 ax9.set_title('i) Aug Tornadoes; JAS ONI',fontsize=16)
-   
+'''   
 for i, txt in enumerate(xlabels9):
     plt.annotate(txt, (p9[i], onis9[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
-    
+'''    
 
 ###############################################################################
 ###############################################################################
@@ -1001,10 +1001,10 @@ ax10.set_yticklabels(label10[::3], fontsize=10, rotation=0)
 ax10.set_title('j) Sep Tornadoes; ASO ONI',fontsize=16)
 ax10.set_ylabel('Years Ranked by ONI',fontsize=16)
 ax10.set_xlabel('% EF1+ Climatological Frequency',fontsize=16)
-
+'''
 for i, txt in enumerate(xlabels10):
     plt.annotate(txt, (p10[i], onis10[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
-
+'''
 
 ###############################################################################
 ###############################################################################
@@ -1029,10 +1029,10 @@ ax11.set_yticklabels(label11[::3], fontsize=10, rotation=0)
 ax11.set_title('k) Oct Tornadoes; SON ONI',fontsize=16)
 #ax11.set_ylabel('Years Ranked by ONI',fontsize=14)
 #ax11.set_xlabel('Number of Tornadoes',fontsize=14)
-
+'''
 for i, txt in enumerate(xlabels11):
     plt.annotate(txt, (p11[i], onis11[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
-
+'''
 
 
 cbar_ax = fig.add_axes([0.34, 0.005, 0.295, 0.008])
@@ -1082,10 +1082,10 @@ ax12.set_yticklabels(label12[::3], fontsize=10, rotation=0)
 ax12.set_title('l) Nov Tornadoes; OND ONI',fontsize=16)
 #ax12.set_ylabel('Years Ranked by ONI',fontsize=14)
 ax12.set_xlabel('% EF1+ Climatological Frequency',fontsize=16)
-
+'''
 for i, txt in enumerate(xlabels12):
     plt.annotate(txt, (p12[i], onis12[i]), horizontalalignment='left', verticalalignment='center', rotation=0, fontsize=6, zorder=2)
-
+'''
 
 ###############################################################################
 ###############################################################################
